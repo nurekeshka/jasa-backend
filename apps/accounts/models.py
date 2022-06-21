@@ -22,3 +22,12 @@ class User(AbstractUser):
         today = date.today()
         age = today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
         return age
+
+@receiver(post_save, sender=User)
+def create_user_token(sender, instance, created, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_token(sender, instance, **kwargs):
+    Token.objects.get(user=instance).save()
