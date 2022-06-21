@@ -1,3 +1,4 @@
+from .exceptions import validate_organization_type
 from .constants import organization_types
 from .constants import contact_types
 from django.db import models
@@ -5,7 +6,9 @@ from django.db import models
 
 class Organization(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='name')
-    type = models.CharField(max_length=3, choices=organization_types, default=organization_types[0], verbose_name='type')
+    type = models.CharField(max_length=3, choices=organization_types,
+                            default=organization_types[0], verbose_name='type',
+                            validators=[validate_organization_type])
 
     class Meta:
         verbose_name = 'organization'
