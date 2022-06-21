@@ -28,3 +28,23 @@ class Contact(models.Model):
     
     def __str__(self):
         return self.value
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=255, verbose_name='name')
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, verbose_name='organization')
+    
+    date = models.DateField(verbose_name='date')
+    start = models.TimeField(verbose_name='start')
+    end = models.TimeField(verbose_name='end')
+
+    longitude = models.FloatField(verbose_name='longitude')
+    latitude = models.FloatField(verbose_name='latitude')
+
+    class Meta:
+        verbose_name = 'event'
+        verbose_name_plural = 'events'
+        ordering = ('organization', 'date', 'name')
+    
+    def __str__(self):
+        return self.name
