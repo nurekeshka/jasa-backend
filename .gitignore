@@ -3,3 +3,4 @@ venv
 __pycache__
 **/migrations/*.py
 !init.py
+settings.ini
