@@ -36,7 +36,7 @@ class Contact(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
-    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, verbose_name='organization')
+    organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL, verbose_name='organization')
 
     date = models.DateField(verbose_name='date')
     start = models.TimeField(verbose_name='start')
