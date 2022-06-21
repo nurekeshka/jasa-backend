@@ -9,3 +9,6 @@ class User(AbstractUser):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
         ordering = ('username',)
+        
+    def __str__(self):
+        return self.get_full_name()
