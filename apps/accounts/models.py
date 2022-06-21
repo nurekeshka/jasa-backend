@@ -11,8 +11,8 @@ class User(AbstractUser):
     birth_date = models.DateField(null=True, blank=True, verbose_name='birth date')
 
     class Meta:
-        verbose_name = 'пользователь'
-        verbose_name_plural = 'пользователи'
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
         ordering = ('username',)
         
     def __str__(self):
