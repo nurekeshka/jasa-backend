@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'apps.telegram.apps.TelegramConfig',
     'apps.accounts.apps.AccountsConfig',
     'apps.events.apps.EventsConfig',
+    
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
