@@ -34,9 +34,14 @@ class Contact(models.Model):
         return self.value
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, verbose_name='name')
+
+
 class Event(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
     organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL, verbose_name='organization')
+    tags = models.ManyToManyField(Tag, verbose_name='tags')
 
     date = models.DateField(verbose_name='date')
     start = models.TimeField(verbose_name='start')
