@@ -37,6 +37,10 @@ class Contact(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=50, verbose_name='name')
 
+    class Meta:
+        verbose_name = 'tag'
+        verbose_name_plural = 'tags'
+
 
 class Event(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
