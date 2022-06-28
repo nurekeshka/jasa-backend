@@ -2,11 +2,23 @@ from django.core.management.base import BaseCommand
 from django.conf import settings
 from telebot import TeleBot
 from telebot import types
+from ...utils import telegram_user
+from ...models import Telegram
+from ...interface import *
 
 
 bot = TeleBot(settings.TELEGRAM_BOT_TOKEN, threaded=False)
 
 
+@bot.message_handler(commands=[Start.name])
+@telegram_user
+def start(message: types.Message, user: Telegram):
+    bot.send_photo(
+        message.chat.id,
+        photo='https://avatars.githubusercontent.com/u/16373529?v=4',
+        caption=Start.message,
+        parse_mode='html'
+    )
 
 
 class Command(BaseCommand):
