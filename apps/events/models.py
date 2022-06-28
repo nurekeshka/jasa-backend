@@ -53,9 +53,8 @@ class Event(models.Model):
     photo = models.URLField(verbose_name='photo')
     tags = models.ManyToManyField(Tag, verbose_name='tags')
 
-    date = models.DateField(verbose_name='date')
-    start = models.TimeField(verbose_name='start')
-    end = models.TimeField(verbose_name='end')
+    start = models.DateTimeField(verbose_name='start')
+    end = models.DateTimeField(verbose_name='end')
 
     address = models.CharField(max_length=255, verbose_name='address')
     longitude = models.FloatField(verbose_name='longitude')
