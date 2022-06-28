@@ -63,7 +63,6 @@ class Event(models.Model):
     class Meta:
         verbose_name = 'event'
         verbose_name_plural = 'events'
-        ordering = ('organization', 'date', 'name')
     
     def __str__(self):
         return self.name
