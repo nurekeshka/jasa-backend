@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from apps.events.models import Event
 from telebot import TeleBot
 from telebot import types
 from ...utils import telegram_user
@@ -21,12 +22,12 @@ def start(message: types.Message, user: Telegram):
     )
 
 
-def notificate_all_users_about_event(event):
+def notificate_all_users_about_event(event: Event):
     for user in Telegram.objects.all():
         bot.send_photo(
             chat_id=user.id,
             photo=event.photo,
-            caption=Events.message.format(event.name, event.date),
+            caption=Events.message(event),
             parse_mode='html'
         )
 
