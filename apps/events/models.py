@@ -22,7 +22,7 @@ class Organization(models.Model):
 
 class Contact(models.Model):
     type = models.CharField(max_length=3, choices=contact_types, verbose_name='type')
-    value = models.TextField(verbose_name='value')
+    value = models.CharField(max_length=255, verbose_name='value')
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name='organization')
 
     class Meta:
