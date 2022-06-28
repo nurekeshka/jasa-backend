@@ -6,4 +6,4 @@ class Start(object):
 
 
 class Event(object):
-    event_message_text = '{0}\n{1}'
+    message = '{0}\n{1}'
