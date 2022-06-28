@@ -28,6 +28,7 @@ class Emoji (Enum):
     exclamation_mark_white = '❕'
     exclamation_mark_red = '❗️'
     exclamation_mark_double = '‼️'
+    paper_with_pencil = '📝'
 
 
 MONTHES = [
