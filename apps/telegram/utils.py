@@ -1,5 +1,5 @@
 from apps.events.models import Event
-from .constants import event_text_description
+from .interface import Event
 from .models import Telegram
 from telebot import TeleBot
 from telebot import types
@@ -10,7 +10,7 @@ def notificate_all_users_about_event(event: Event, bot: TeleBot) -> bool:
         bot.send_photo(
             chat_id=users.id,
             photo=event.photo,
-            caption=event_text_description.format(event.name, event.date)
+            caption=Event.message.format(event.name, event.date)
         )
 
 
