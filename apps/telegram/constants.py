@@ -24,6 +24,11 @@ class Emoji (Enum):
     green = '🟩'
     running_guy = '🏃‍♂️'
     voice = '📢'
+    japanese_gate = '⛩'
+    exclamation_mark_white = '❕'
+    exclamation_mark_red = '❗️'
+    exclamation_mark_double = '‼️'
+
 
 MONTHES = [
     None,
