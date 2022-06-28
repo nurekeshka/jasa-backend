@@ -23,4 +23,4 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'organization', 'date', 'start', 'end')
-    fields = ('name', 'organization', 'date', 'start', 'end', 'tags', 'longitude', 'latitude')
+    fields = ('name', 'organization', 'date', 'start', 'end', 'photo', 'tags', 'longitude', 'latitude')
