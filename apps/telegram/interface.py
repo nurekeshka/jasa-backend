@@ -5,5 +5,5 @@ class Start(object):
     message = 'Добро пожаловать!'
 
 
-class Event(object):
+class Events(object):
     message = '{0}\n{1}'
