@@ -12,9 +12,9 @@ class OrganizationModelTests(TestCase):
     invalid_organization_type = 'Hello, world!'
 
     def test_organization_type_validation_valid(self):
-        Organization.objects.create(name=self.valid_organization_name, type=organization_types[1], description=self.valid_organization_description).full_clean()
+        Organization.objects.create(name=self.valid_organization_name, type=organization_types[1][0], description=self.valid_organization_description).full_clean()
 
 
     def test_organization_type_validation_invalid(self):
         with self.assertRaises(ValidationError):
-            Organization.objects.create(name=self.valid_organization_name, type=self.invalid_organization_type, description=self.valid_organization_description)
+            Organization.objects.create(name=self.valid_organization_name, type=self.invalid_organization_type, description=self.valid_organization_description).full_clean()
