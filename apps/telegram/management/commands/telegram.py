@@ -28,6 +28,7 @@ def notificate_all_users_about_event(event: Event):
             chat_id=user.id,
             photo=event.photo,
             caption=Events.message(event),
+            reply_markup=Events.markup(event),
             parse_mode='html'
         )
 
