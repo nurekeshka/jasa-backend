@@ -25,6 +25,7 @@ class TagAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'organization', 'start', 'end', 'address')
     fields = ('name', 'description', 'organization', 'address', ('start', 'end'), ('photo', 'tags'), ('longitude', 'latitude'))
+    actions = ('notificate_all_users_about_event',)
     
     @admin.action(description='Notificate all users')
     def notificate_all_users_about_event(self, request, queryset):
