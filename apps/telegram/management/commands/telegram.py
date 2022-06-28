@@ -21,12 +21,13 @@ def start(message: types.Message, user: Telegram):
     )
 
 
-def notificate_all_users_about_event(event: Event, bot: TeleBot):
-    for users in Telegram.objects.all():
+def notificate_all_users_about_event(event):
+    for user in Telegram.objects.all():
         bot.send_photo(
-            chat_id=users.id,
+            chat_id=user.id,
             photo=event.photo,
-            caption=Event.message.format(event.name, event.date)
+            caption=Events.message.format(event.name, event.date),
+            parse_mode='html'
         )
 
 
