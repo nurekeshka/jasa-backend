@@ -1,3 +1,26 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.Admin):
+    list_display = ('name', 'description', 'type')
+    fields = ('name', 'description', 'type')
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.Admin):
+    list_display = ('type', 'value', 'organization')
+    fields = ('type', 'value', 'organization')
+
+
+@admin.register(Tag)
+class TagAdmin(admin.Admin):
+    list_display = ('id', 'name')
+    fields = ('name',)
+
+
+@admin.register(Event)
+class EventAdmin(admin.Admin):
+    list_display = ('name', 'organization', 'date', 'start', 'end')
+    fields = ('name', 'organization', 'date', 'start', 'end', 'tags', 'longitude', 'latitude')
