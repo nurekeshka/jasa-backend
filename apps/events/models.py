@@ -1,8 +1,6 @@
 from .exceptions import validate_organization_type
-from django.db.models.signals import post_save
 from .constants import organization_types
 from .constants import contact_types
-from django.dispatch import receiver
 from django.db import models
 
 
@@ -49,6 +47,8 @@ class Tag(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
+    description = models.TextField(verbose_name='description')
+
     organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL, verbose_name='organization')
     photo = models.URLField(verbose_name='photo')
     tags = models.ManyToManyField(Tag, verbose_name='tags')
@@ -57,6 +57,7 @@ class Event(models.Model):
     start = models.TimeField(verbose_name='start')
     end = models.TimeField(verbose_name='end')
 
+    address = models.CharField(max_length=255, verbose_name='address')
     longitude = models.FloatField(verbose_name='longitude')
     latitude = models.FloatField(verbose_name='latitude')
 
