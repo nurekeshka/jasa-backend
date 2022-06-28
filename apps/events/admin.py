@@ -29,6 +29,6 @@ def notificate_all_users_about_event(modeladmin, request, queryset):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'organization', 'date', 'start', 'end', 'address')
+    list_display = ('name', 'organization', 'date', 'start', 'end', 'address')
     fields = ('name', 'description', 'organization', 'date', 'address', ('start', 'end'), 'photo', 'tags', ('longitude', 'latitude'))
     actions = (notificate_all_users_about_event,)
