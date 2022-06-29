@@ -16,7 +16,7 @@ class Organizations(object):
 class Events(object):
     callback_data = 'event:{}'
 
-    def message(event: Event):
+    def message(event: Event) -> str:
         text = f'{Emoji.exclamation_mark_double.value} {event.name} {Emoji.exclamation_mark_double.value}\n\n'
 
         text += f'{Emoji.marker.value} Адрес: {event.address}\n'
@@ -30,7 +30,7 @@ class Events(object):
 
         return text
     
-    def markup(event: Event):
+    def markup(event: Event) -> types.InlineKeyboardMarkup:
         inline = types.InlineKeyboardMarkup()
 
         organization_btn = types.InlineKeyboardButton(
