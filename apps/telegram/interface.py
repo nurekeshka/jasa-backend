@@ -1,4 +1,4 @@
-from apps.events.models import Event
+from apps.events.models import Event, Organization
 from .constants import MONTHES
 from .constants import Emoji
 from telebot import types
@@ -11,6 +11,21 @@ class Start(object):
 
 class Organizations(object):
     callback_data = 'organization:{}'
+
+    def message(organization: Organization) -> str:
+        text = organization.name
+        text += organization.description
+        return text
+    
+    def markup(organization: Organization, event_id: int or str) -> types.InlineKeyboardMarkup:
+        inline = types.InlineKeyboardMarkup()
+
+        inline.add(types.InlineKeyboardButton(
+            text=Back.text,
+            callback_data=Events.callback_data.format(event_id)
+        ))
+
+        return inline
 
 
 class Events(object):
@@ -48,3 +63,7 @@ class Events(object):
         )
 
         return inline
+
+
+class Back(object):
+    text = '« Вернуться назад'
