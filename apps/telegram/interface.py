@@ -50,7 +50,7 @@ class Events(object):
 
         organization_btn = types.InlineKeyboardButton(
             text='Об организаторе',
-            callback_data=Organizations.callback_data.format(event.organization.id)
+            callback_data=Organizations.callback_data.format(event.organization.id) + ';' + Events.callback_data.format(event.id)
         )
 
         sign_up_btn = types.InlineKeyboardButton(
