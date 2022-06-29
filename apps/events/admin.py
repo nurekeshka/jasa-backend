@@ -5,7 +5,7 @@ from .models import *
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'type', 'photo')
+    list_display = ('name', 'description', 'type')
     fields = ('name', 'description', 'type', 'photo')
 
 
