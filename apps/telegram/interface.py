@@ -55,7 +55,7 @@ class Events(object):
 
         sign_up_btn = types.InlineKeyboardButton(
             text='Записаться',
-            callback_data=Events.callback_data.format(event.id)
+            url=event.sign_up_url
         )
 
         inline.add(
