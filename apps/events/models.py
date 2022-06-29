@@ -7,6 +7,7 @@ from django.db import models
 class Organization(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='name')
     description = models.TextField(verbose_name='description')
+    photo = models.URLField(verbose_name='photo')
     type = models.CharField(max_length=3, choices=organization_types,
                             default=organization_types[0][0], verbose_name='type',
                             validators=[validate_organization_type])
