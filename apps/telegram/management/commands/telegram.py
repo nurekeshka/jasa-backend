@@ -25,8 +25,8 @@ def start(message: types.Message, user: Telegram):
 @bot.callback_query_handler(func=lambda call: True)
 @telegram_user
 def callback_query_handler(call: types.CallbackQuery, user: Telegram):
-    if call.data.startswith(Events.callback_data):
-        id = int(call.data.split(':')[0])
+    if call.data.startswith(Events.callback_data.split(':')[0]):
+        id = int(call.data.split(':')[1])
         
         try:
             event = Event.objects.get(id=id)
@@ -42,6 +42,24 @@ def callback_query_handler(call: types.CallbackQuery, user: Telegram):
             ),
             message_id=call.message.id,
             reply_markup=Events.markup(event)
+        )
+    elif call.data.startswith(Organizations.callback_data.split(':')[0]):
+        id_org, id_eve = tuple(map(lambda x: int(x.split(':')[1]), call.data.split(';')))
+
+        try:
+            organization = Organization.objects.get(id=id_org)
+        except Organization.DoesNotExist:
+            return
+        
+        bot.edit_message_media(
+            chat_id=call.message.chat.id,
+            media=types.InputMediaPhoto(
+                media=organization.photo,
+                caption=Organizations.message(organization),
+                parse_mode='html'
+            ),
+            message_id=call.message.id,
+            reply_markup=Organizations.markup(organization, id_eve)
         )
 
 
