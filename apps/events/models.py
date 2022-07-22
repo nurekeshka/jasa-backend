@@ -49,7 +49,7 @@ class Tag(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
     description = models.TextField(verbose_name='description')
-    sign_up_url = models.URLField(verbose_name='sign_up_url')
+    sign_up_url = models.URLField(verbose_name='sign up url')
 
     organization = models.ForeignKey(Organization, null=True, on_delete=models.SET_NULL, verbose_name='organization')
     photo = models.URLField(verbose_name='photo')
