@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from apps.events.models import Event
+from apps.events.models import Event, Tag
 from ...utils import telegram_user
 from ...models import Telegram
 from ...interface import *
@@ -16,7 +16,7 @@ bot = TeleBot(settings.TELEGRAM_BOT_TOKEN, threaded=False)
 def start(message: types.Message, user: Telegram):
     bot.send_photo(
         message.chat.id,
-        photo='https://avatars.githubusercontent.com/u/16373529?v=4',
+        photo=Start.photo,
         caption=Start.message,
         parse_mode='html'
     )
@@ -69,15 +69,47 @@ def notificate_all_users_about_event(event: Event):
             chat_id=user.id,
             photo=event.photo,
             caption=Events.message(event),
-            reply_markup=Events.markup(event),
-            parse_mode='html'
+            reply_markup=Events.markup(event)
         )
 
 
+@bot.message_handler(commands=['search'])
+def search_by_tag(message: types.Message):
+    message = bot.send_message(
+        chat_id=message.chat.id,
+        text=Search.message()
+    )
+
+    bot.register_next_step_handler(message, search)
+
+
+def search(message: types.Message):
+    try:
+        tag = Tag.objects.get(name=message.text)
+    except Tag.DoesNotExist:
+        return bot.send_message(
+            chat_id=message.chat.id,
+            text='Этого тэга не существует'
+        )
+
+    if not tag.event_set.exists():
+        return bot.send_message(
+            chat_id=message.chat.id,
+            text='Мероприятий по такому тэгу сейчас нет',
+        )
+
+    bot.send_photo(
+        chat_id=message.chat.id,
+        reply_markup=Search.markup(tag),
+        photo=Start.photo,
+    )
+
+
 class Command(BaseCommand):
-    help = 'Telegram bot setup command'
+    help = 'Это команда запуска телеграм бота'
 
     def handle(self, *args, **kwargs):
         bot.enable_save_next_step_handlers(delay=2)
         bot.load_next_step_handlers()
-        bot.infinity_polling()
+        # bot.infinity_polling()
+        bot.polling()
