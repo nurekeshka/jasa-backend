@@ -11,12 +11,12 @@ git clone
 git clone git@github.com:nurekeshka/jasa-backend.git
 ```
 
-Setup virtual environment
+Setup virtual environment (optional)
 ```
 python3 -m venv venv
 ```
 
-Install necessary requirements
+Install requirements
 ```
 pip install -r requirements.txt
 ```
