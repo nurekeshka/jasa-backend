@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
 
 from jasa.settings import BOT_TOKEN
 from . import views
@@ -7,6 +8,10 @@ from . import views
 app_name = 'telegram'
 
 urlpatterns = [
-    path('/', views.webhook, name='webhook'),
-    path(f'/{BOT_TOKEN}', views.process_updates, name='process_updates')
+    path('', views.webhook, name='webhook'),
+    path(
+        f'/{BOT_TOKEN}', 
+        csrf_exempt(views.Process_updates.as_view()), 
+        name='process_updates'
+    )
 ]

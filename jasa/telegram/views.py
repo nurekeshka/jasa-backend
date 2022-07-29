@@ -1,21 +1,28 @@
-from django.shortcuts import render
-import telebot
+from django.http import HttpResponse, JsonResponse
+from django.views import View
+from telebot import types
 
 from .bot import bot
-from jasa.settings import URL, BOT_TOKEN
+from jasa.settings import DOMAIN, BOT_TOKEN
 
 
 def webhook(request):
     """Setup a webhook."""
     bot.remove_webhook()
-    bot.set_webhook(url=URL + BOT_TOKEN)
-    return '!'
+    bot.set_webhook(url=DOMAIN + BOT_TOKEN + '/')
+    return HttpResponse('!')
 
 
-def process_updates(request):
+class Process_updates(View):
     """Receive requests from telegram API."""
-    if request.method == 'POST':
-        bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-        return "!"
-    else:
-        return "Access Denied"
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Бот запусчен и работает.")
+ 
+
+    def post(self, request, *args, **kwargs):
+        json_str = request.body.decode('UTF-8')
+        update = types.Update.de_json(json_str)
+        bot.process_new_updates([update])
+ 
+        return JsonResponse({'code': 200})

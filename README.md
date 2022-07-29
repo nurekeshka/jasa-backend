@@ -25,3 +25,8 @@ Then, simply run the server using this command.
 ```
 python3 manage.py runserver
 ```
+
+Setup ngrok server. Make sure to connect to the same port 8000
+```
+ngrok http 8000
+```

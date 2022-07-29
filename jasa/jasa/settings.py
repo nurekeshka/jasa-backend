@@ -9,13 +9,14 @@ import dotenv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load env variables from file
-dotenv_file = BASE_DIR / ".env"
+dotenv_file = BASE_DIR + '/.env'
+print(dotenv_file)
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv(
-    "DJANGO_SECRET_KEY",
+    'DJANGO_SECRET_KEY',
     'x%#3&%giwv8f0+%r946en7z&d@9*rc$sl0qoql56xr%bh^w2mj',
 )
 
@@ -25,18 +26,19 @@ else:
     DEBUG = False
 
 
-ALLOWED_HOSTS = ["*",]  # since Telegram uses a lot of IPs for webhooks
+ALLOWED_HOSTS = ['*',]  # since Telegram uses a lot of IPs for webhooks
 
 
 # TELEGRAM definitions
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-if TELEGRAM_TOKEN is None:
+BOT_TOKEN = os.getenv('TELEGRAM_TOKEN')
+if BOT_TOKEN is None:
     logging.error(
-        "Please provide TELEGRAM_TOKEN in .env file.\n"
-        "Example of .env file: https://github.com/ohld/django-telegram-bot/blob/main/.env_example"
+        'Please provide TELEGRAM_TOKEN in .env file.\n'
+        'Example of .env file: https://github.com/ohld/django-telegram-bot/blob/main/.env_example'
     )
     sys.exit(1)
 
+DOMAIN = os.getenv('DOMAIN')
 
 # Application definition
 
