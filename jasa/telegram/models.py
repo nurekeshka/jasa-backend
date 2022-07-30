@@ -38,8 +38,4 @@ class TelegramUser(models.Model):
         verbose_name_plural= 'Telegram users'
 
     def __str__(self):
-        return (
-            f'id: {self.id}\n'
-            f'username: {self.username}\n'
-            f'full name: {self.first_name} {self.last_name}\n'
-        )
+        return str(self.id)

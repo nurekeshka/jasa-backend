@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from telebot import types
@@ -17,7 +18,7 @@ class Process_updates(View):
     """Receive requests from telegram API."""
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse("Бот запусчен и работает.")
+        return HttpResponse('Бот запусчен и работает.')
  
 
     def post(self, request, *args, **kwargs):

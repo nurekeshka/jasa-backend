@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+  
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
+
+    {% comment %} 
+    TODO: Bring back telegram web app script 
+    link: https://core.telegram.org/bots/webapps
+    link: https://habr.com/ru/post/666278/
+    {% endcomment %}
+
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+  </head>
+
+  <body>
+    <main>
+      <div class="container py-5">
+        {% block content %}
+          Контент не подвезли :(
+        {% endblock %}
+      </div>
+    </main>
+  </body>
+</html>
