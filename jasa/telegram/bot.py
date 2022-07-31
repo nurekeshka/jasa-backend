@@ -26,7 +26,11 @@ def introduction(message, user = None):
 @get_telegram_user(introduction)
 def start(message, user):
     """Send a welcome back text message."""
-    keyboard = create_reply_keyboard(context['start']['buttons'])
+    keyboard = create_reply_keyboard(
+        context['start']['buttons'],
+        placeholder_values={'user_id': {'web_app': user.id}}
+    )
+    print(keyboard)
     bot.send_message(
         user.id,
         context['start']['text'].format(

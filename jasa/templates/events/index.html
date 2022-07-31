@@ -1,29 +1,71 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Events{% endblock title %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/events/index.css' %}">
+{% endblock %}
+
+{% block header_title %}Recent events{% endblock %}
+{% block header_right %}
+<a href="{% url 'events:index' user.id %}">
+    <i class="fa-solid fa-arrow-rotate-right"></i>
+  </a>
+{% endblock %}
 
 {% block content %}
   {% for event in events %}
-    <article class="container-fluid mt-3 p-0">
+    {% comment %} 
+      TODO:
+      Figure out how to move this to a template. For event_detail.html
+    {% endcomment %}
+    <article class="container-fluid p-2 rounded event-container">
+      <h4>{{ event.title }}</h4>
       <div class="row">
         <div class="col-md-5">
           <img src="{{ event.photo }}" alt="" class="mw-100 mh-100 rounded">
-          <ul class="d-flex p-0 list-unstyled">
-            <li class="p-2"><i class="fa-regular fa-heart fa-lg"></i></li>
-            <li class="p-2"><i class="fa-regular fa-comment fa-lg"></i></li>
+          <ul class="d-flex p-0 m-0 list-unstyled">
+            <li class="p-2">
+              <form 
+                action="{% url 'events:like_post' user.id %}"
+                method="POST"
+              >
+                {% csrf_token %}
+                <input type="hidden" name="event_id" value="{{ event.id }}">
+
+                {% comment %} 
+                  FIXME:
+                  The like button doesn't have correct color.
+                {% endcomment %}
+                <button type="submit" class="tg-text btn p-0">
+                  {% if user not in event.liked.all %}
+                      <i class="fa-regular fa-heart fa-lg tg-text"></i>
+                  {% else %}
+                      <i class="fa-solid fa-heart fa-lg text-danger"></i>
+                  {% endif %}
+                </button>
+              </form>
+            </li>
             <li class="p-2"><i class="fa-regular fa-paper-plane fa-lg"></i></li>
             <li class="p-2 ml-auto"><i class="fa-regular fa-bookmark fa-lg"></i></li>
           </ul>
+          <p class="tg-hint mb-3">{{ event.liked.all.count }} likes</p>
         </div>
-        <div class="col-md-7 mt-3">    
-          <h2>{{ event.title }}</h2>
-          <p>{{ event.description|linebreaksbr|truncatewords:25 }}</p>
+        <div class="col-md-7"> 
+          <p>
+            {{ event.description|linebreaksbr|truncatewords:25 }}
+            
+            {% if event.description|length > 25 %}
+              <a href="{% url 'events:event_details' user.id event.id %}">Read more</a>
+            {% endif %}
+          </p>
 
-          <p>Date: {{ event.start_date }}</p>
-          <p>Address: {{ event.address }}</p>
+          <p><i class="fa-regular fa-calendar"></i> {{ event.start_date }}</p>
+          <p><i class="fa-regular fa-map"></i> {{ event.address }}</p>
 
-          <a href="{% url 'events:event_details' event.id %}">Read more</a>
-          <a href="{{ event.sign_up_url }}" target="_blank">Register</a>
+          <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
+            <button class="btn w-100 register-event-btn">Register now</button>
+          </a>
         </div>
       </div>
     </article>

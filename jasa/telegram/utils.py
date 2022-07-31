@@ -20,9 +20,17 @@ def create_reply_keyboard(buttons, placeholder_values = {}, options = {}):
 								 placeholder_values[key]['text'] 
 								 for key in text_keys
 						]))
+			web_app_keys = get_format_keys(button['web_app'])
+			web_app_dict = dict(zip(web_app_keys, [
+								 placeholder_values[key]['web_app']
+								 for key in web_app_keys
+						]))
+			
+			print(button['web_app'].format(**web_app_dict))
+
 			reply_button = KeyboardButton(
 				button['text'].format(**text_dict),
-				web_app=WebAppInfo(button['web_app'])
+				web_app=WebAppInfo(button['web_app'].format(**web_app_dict))
 			)
 
 			keyboard_row.append(reply_button)

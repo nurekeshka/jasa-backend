@@ -12,24 +12,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"> 
     <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
 
-    {% comment %} 
-    TODO: Bring back telegram web app script 
-    link: https://core.telegram.org/bots/webapps
-    link: https://habr.com/ru/post/666278/
-    {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock %}
 
     <title>
       {% block title %}{% endblock %}
     </title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
   </head>
 
   <body>
-    <main>
-      <div class="container py-5">
-        {% block content %}
-          Контент не подвезли :(
-        {% endblock %}
+    <header class="container my-2">
+      <ul class="d-flex justify-content-between list-unstyled mb-0">
+        <li class="p-0 col-2 text-left">{% block header_left %}{% endblock %}</li>
+        <li class="p-0 col text-center">{% block header_title %}Header title{% endblock %}</li>
+        <li class="p-0 col-2 text-right">{% block header_right %}{% endblock %}</li>
+      </ul>
+    </header>
+
+    <main class="p-1">
+      <div class="container py-1">
+        <div class="content">
+          {% block content %}
+            Контент не подвезли :(
+          {% endblock %}
+        </div>
       </div>
     </main>
+
+    {% include 'includes/footer.html' %}
   </body>
 </html>

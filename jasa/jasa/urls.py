@@ -6,5 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('telegram.urls')),
-    path('', include('events.urls')),
+    path('<int:user_id>/', include('events.urls')),
 ]

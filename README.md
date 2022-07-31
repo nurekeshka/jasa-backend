@@ -1,5 +1,9 @@
 # jasa-backend
  
+## Useful links
+- https://habr.com/ru/post/666278/
+- https://core.telegram.org/bots/webapps
+
 ## Setup Commands
 Clone this repository
 1. For Http

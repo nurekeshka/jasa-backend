@@ -1,0 +1,16 @@
+body {
+    background-color: var(--tg-theme-secondary-bg-color);
+    color: var(--tg-theme-text-color) !important;
+}
+
+a {
+    color: var(--tg-theme-link-color);
+}
+
+.tg-hint {
+    color: var(--tg-theme-hint-color);
+}
+
+.tg-text {
+    color: var(--tg-theme-text-color) !important;
+}

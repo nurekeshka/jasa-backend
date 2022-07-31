@@ -19,7 +19,7 @@ context = {
             [
                 {
                     'text': '🌐 Explore',
-                    'web_app': DOMAIN + 'events/',
+                    'web_app': DOMAIN + '{user_id}/events/',
                 },
                 # {
                 #     'text': '/search',
