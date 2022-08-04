@@ -12,6 +12,7 @@ def index(request):
 
     context = {
         'events': event_list,
+        'show_full': False,
     }
 
     print(request.user)
@@ -26,6 +27,7 @@ def event_details(request, event_id: int):
 
     context = {
         'event': event,
+        'show_full': True,
     }
 
     return render(request, template_name, context)

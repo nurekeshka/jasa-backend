@@ -1,0 +1,67 @@
+<article id="event-{{ event.id }}" class="container-fluid p-2 rounded event-container">
+  <h4>{{ event.title }}</h4>
+  <div class="row">
+    <div class="col-md-5">
+      <img src="{{ event.photo }}" alt="" class="mw-100 mh-100 rounded">
+      {% csrf_token %}
+      <ul class="d-flex p-0 m-0 list-unstyled">
+        <li class="p-2">
+          <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
+            {% if user not in event.liked.all %}
+                <i class="fa-regular fa-heart fa-lg tg-text"></i>
+            {% else %}
+                <i class="fa-solid fa-heart fa-lg text-danger"></i>
+            {% endif %}
+          </button>
+        </li>
+        {% comment %} 
+        TODO:
+        Think about if it is possible to open forward message by clicking on forward button.
+        Should send a link to the detail event page.
+        {% endcomment %}
+        <li class="p-2"><i class="fa-regular fa-paper-plane fa-lg"></i></li>
+        <li class="p-2 ml-auto">
+          <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
+            {% if user not in event.bookmarked.all %}
+                <i class="fa-regular fa-bookmark fa-lg tg-text"></i>
+            {% else %}
+                <i class="fa-solid fa-bookmark fa-lg text-warning"></i>
+            {% endif %}
+          </button>
+        </li>
+      </ul>
+      <p class="mb-3 like-count">{{ event.liked.all.count }} likes</p>
+    </div>
+    <div class="col-md-7"> 
+      <p>
+        {% comment %} 
+        TODO: 
+        25 is currently a magic number.
+        Store it somewhere else as a constant.
+        {% endcomment %}
+        {% if show_full %}
+          {{ event.description|linebreaksbr }}
+        {% else %}
+          {{ event.description|linebreaksbr|truncatewords:25 }}
+          {% if event.description|length > 25 %}
+            <a href="{% url 'events:event_details' event.id %}">Read more</a>
+          {% endif %}
+        {% endif %}
+
+      </p>
+
+      <p><i class="fa-regular fa-calendar"></i> {{ event.start_date }}</p>
+      <p><i class="fa-regular fa-map"></i> {{ event.address }}</p>
+
+
+      {% comment %} 
+        TODO:
+        Figure out if the user actually signed in or not.
+        (Perhaps th user gets redirected to register confirmation page after signing up to the event.)
+      {% endcomment %}
+      <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
+        <button class="btn w-100 register-event-btn">Register now</button>
+      </a>
+    </div>
+  </div>
+</article>
