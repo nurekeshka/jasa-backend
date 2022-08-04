@@ -1,42 +1,61 @@
 import string
 
 from telebot.types import (
+	InlineKeyboardMarkup, InlineKeyboardButton,
 	ReplyKeyboardMarkup, KeyboardButton,
-	WebAppInfo
+
+	WebAppInfo,
 )
 
 
-def create_reply_keyboard(buttons, placeholder_values = {}, options = {}):
-	"""
-	Creates a reply keyboard from a given format. 
-	Applies given values to placeholders.
-	"""
-	keyboard = ReplyKeyboardMarkup(**options)
-	for row in buttons:
-		keyboard_row = []
-		for button in row:
-			text_keys = get_format_keys(button['text'])
-			text_dict = dict(zip(text_keys, [
-								 placeholder_values[key]['text'] 
-								 for key in text_keys
-						]))
-			web_app_keys = get_format_keys(button['web_app'])
-			web_app_dict = dict(zip(web_app_keys, [
-								 placeholder_values[key]['web_app']
-								 for key in web_app_keys
-						]))
-			
-			print(button['web_app'].format(**web_app_dict))
+class Keyboard:
+	def __init__(self, keyboard_type='reply_keyboard', buttons=[]):
+		self.buttons = buttons
 
-			reply_button = KeyboardButton(
-				button['text'].format(**text_dict),
-				web_app=WebAppInfo(button['web_app'].format(**web_app_dict))
-			)
+		if keyboard_type == 'reply_keyboard':
+			self.keyboard_class = ReplyKeyboardMarkup
+			self.button_class = KeyboardButton
+		elif keyboard_type == 'inline_keyboard':
+			self.keyboard_class = InlineKeyboardMarkup
+			self.button_class = InlineKeyboardButton
 
-			keyboard_row.append(reply_button)
-		keyboard.row(*keyboard_row)
+	def create(self, sub_values={}, options={}):
+		"""
+		Creates a keyboard from a given format. 
+		Applies given values to placeholders.
+		"""
+		keyboard = self.keyboard_class(**options)
+		for row in self.buttons:
+			keyboard_row = [
+				button.create(self.button_class, sub_values)
+				for button in row
+			]
+			keyboard.row(*keyboard_row)
+		return keyboard
 
-	return keyboard
+
+class Button:
+	def __init__(self, button_type='callback_data', text='', extra=''):
+		self.button_type = button_type
+		self.text = text
+
+		if button_type in ('callback_data', 'url'):
+			self.extra_type = str
+			self.extra = extra
+		elif button_type == 'web_app':
+			self.extra_type = WebAppInfo
+			self.extra = extra
+
+	def create(self, button_class, sub_values={}):
+		"""
+		Creates a button from a given format. 
+		Applies given values to placeholders.
+		"""
+		button_params = {
+			'text': format_text(self.text, self.button_type),
+			self.button_type: self.extra_type(format_text(self.extra, sub_values))
+		}
+		return button_class(**button_params)
 
 
 def get_format_keys(s: str):
@@ -50,3 +69,18 @@ def get_format_keys(s: str):
 	"""
 	keys = [t[1] for t in string.Formatter().parse(s) if t[1] is not None]
 	return keys
+
+
+def format_text(text, placeholder_values):
+	"""
+	Formats a text string with given placeholder values.
+	Example:
+	```python
+	text='Hello {name}, how are you?. My name is {bot_name}.'
+	placeholder_values = {'name': 'John', 'bot_name': 'Jasa', 'age': '25'}
+	res = 'Hello John, how are you?. My name is Jasa.'
+	```
+	"""
+	keys = get_format_keys(text)
+	ddict = dict(zip(keys, [placeholder_values[key] for key in keys]))
+	return text.format(**ddict)

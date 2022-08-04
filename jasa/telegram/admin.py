@@ -8,6 +8,7 @@ class TelegramUserAdmin(admin.ModelAdmin):
     """Displays necessary information about a telegram user"""
 
     list_display: Sequence[str] = (
+        'user',
         'id',
         'username',
         'first_name',

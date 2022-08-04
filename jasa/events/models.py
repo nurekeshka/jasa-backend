@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from telegram.models import TelegramUser
 
 User = get_user_model()
+
 
 class Event(models.Model):
     # TODO: Add docstring to the class.
@@ -14,11 +14,18 @@ class Event(models.Model):
     sign_up_url = models.URLField('Sign up URL')
     photo = models.URLField('Event photo URL')
     liked = models.ManyToManyField(
-        TelegramUser, 
+        User, 
         related_name='liked_events',
         default=None,
         blank = True,
         verbose_name="likes"
+    )
+    bookmarked = models.ManyToManyField(
+        User,
+        related_name='bookmarked_events',
+        default=None,
+        blank = True,
+        verbose_name="bookmarks"
     )
 
     pub_date = models.DateTimeField('Event publish date', auto_now_add=True)
@@ -52,10 +59,13 @@ LIKE_CHOICES = (
     ('dislike', 'dislike'),
 )
 
+
 class Like(models.Model):
-    user = models.ForeignKey(TelegramUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     value = models.CharField(choices=LIKE_CHOICES, default='like', max_length=10)
 
-    def __str__(self):
-        return str(self.post)
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)

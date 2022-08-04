@@ -10,7 +10,7 @@ from jasa.settings import DOMAIN, BOT_TOKEN
 def webhook(request):
     """Setup a webhook."""
     bot.remove_webhook()
-    bot.set_webhook(url=DOMAIN + BOT_TOKEN + '/')
+    bot.set_webhook(url=f'{DOMAIN}/{BOT_TOKEN}/')
     return HttpResponse('!')
 
 

@@ -10,7 +10,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load env variables from file
 dotenv_file = BASE_DIR + '/.env'
-print(dotenv_file)
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
@@ -137,3 +136,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'events:index'
+# LOGOUT_REDIRECT_URL = 'events:index'  

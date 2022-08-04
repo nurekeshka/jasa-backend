@@ -6,10 +6,10 @@
   <link rel="stylesheet" href="{% static 'css/events/index.css' %}">
 {% endblock %}
 
-{% block header_left %}<a href="{% url 'events:index' user.id %}">Back</a>{% endblock %}
+{% block header_left %}<a href="{% url 'events:index' %}">Back</a>{% endblock %}
 {% block header_title %}{{event.title}}{% endblock %}
 {% block header_right %}
-<a href="{% url 'events:index' user.id %}">
+<a href="{% url 'events:event_details' event.id %}">
     <i class="fa-solid fa-arrow-rotate-right"></i>
   </a>
 {% endblock %}
@@ -24,7 +24,7 @@
         <ul class="d-flex p-0 m-0 list-unstyled">
           <li class="p-2">
             <form 
-              action="{% url 'events:like_post' user.id %}"
+              action="{% url 'events:like_post' %}"
               method="POST"
             >
               {% csrf_token %}

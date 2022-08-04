@@ -1,12 +1,24 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+
+User = get_user_model()
+
+
 class TelegramUser(models.Model):
     """
     Saves current users who have used the bot.
     TelegramUser constists of `id`, `username`, `first_name` and `last_name`
     """
 
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user',
+        verbose_name='User account',
+        blank=True,
+        null=True,
+    )
     id = models.IntegerField(
         'User id',
         primary_key=True,

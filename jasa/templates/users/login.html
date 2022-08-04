@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header_title %}Login{% endblock %}
+{% block content %}
+  <p>{{ user_id }}</p>
+  <form 
+    method="post"
+    {% if action_url %}
+      action="{% url action_url %}"
+    {% endif %}
+  >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+  </form>
+{% endblock %}

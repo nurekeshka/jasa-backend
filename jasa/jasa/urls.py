@@ -5,6 +5,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # TODO - authinticaiton
+    path('auth/', include('users.urls')),
+    path('auth/', include('django.contrib.auth.urls')), 
+
     path('', include('telegram.urls')),
-    path('<int:user_id>/', include('events.urls')),
+    path('', include('events.urls')),
 ]
