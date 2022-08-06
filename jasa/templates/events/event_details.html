@@ -6,15 +6,8 @@
   <link rel="stylesheet" href="{% static 'css/events/index.css' %}">
 {% endblock %}
 
-
 {% block header_left %}<a href="{% url 'events:index' %}">Back</a>{% endblock %}
 {% block header_title %}{{event.title}}{% endblock %}
-{% block header_right %}
-<a href="{% url 'events:event_details' event.id %}">
-    <i class="fa-solid fa-arrow-rotate-right"></i>
-  </a>
-{% endblock %}
-
 
 {% block content %}
   {% include 'includes/events/event.html' %}  

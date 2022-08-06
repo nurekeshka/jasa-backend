@@ -1,6 +1,7 @@
 # jasa-backend
  
 ## Useful links
+- https://pythonsansar.com/implement-infinite-scrolling-django/
 - https://habr.com/ru/post/666278/
 - https://core.telegram.org/bots/webapps
 

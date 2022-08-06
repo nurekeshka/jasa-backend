@@ -1,21 +1,25 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .constants import NUM_LOAD_EVENTS
 from .models import Event
 
+
 def index(request):
     """Render 10 most recent events."""
     template_name = 'events/index.html'
-    event_list = Event.objects.all()[:NUM_LOAD_EVENTS]
+    event_list = Event.objects.all()
+
+    paginator = Paginator(event_list, NUM_LOAD_EVENTS)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'events': event_list,
+        'page_obj': page_obj,
         'show_full': False,
     }
-
-    print(request.user)
     
     return render(request, template_name, context)
 

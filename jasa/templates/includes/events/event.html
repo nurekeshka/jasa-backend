@@ -1,4 +1,4 @@
-<article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color">
+<article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color mb-5">
   <img class="card-img-top" src="{{ event.photo }}" alt="{{ event.title }}">
   <div class="header mb-2">
     {% csrf_token %}
@@ -6,7 +6,7 @@
       <li class="p-1">
         <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
           {% if user not in event.liked.all %}
-              <i class="fa-regular fa-heart fa-lg tg-text"></i>
+              <i class="fa-regular fa-heart fa-lg tg-text-color"></i>
           {% else %}
               <i class="fa-solid fa-heart fa-lg text-danger"></i>
           {% endif %}
@@ -23,7 +23,7 @@
       <li class="p-1 ml-auto">
         <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
           {% if user not in event.bookmarked.all %}
-              <i class="fa-regular fa-bookmark fa-lg tg-text"></i>
+              <i class="fa-regular fa-bookmark fa-lg tg-text-color"></i>
           {% else %}
               <i class="fa-solid fa-bookmark fa-lg text-warning"></i>
           {% endif %}
@@ -55,7 +55,7 @@
       </li>
       <li class="p-0">
         <small class="card-text tg-hint-color text-muted">
-          <i class="fa-regular fa-map"><v /i> {{ event.address }}
+          <i class="fa-regular fa-map"></i> {{ event.address }}
         </small>
       </li>
     </ul>
