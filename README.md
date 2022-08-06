@@ -4,6 +4,7 @@
 - https://pythonsansar.com/implement-infinite-scrolling-django/
 - https://habr.com/ru/post/666278/
 - https://core.telegram.org/bots/webapps
+- https://metatags.io/
 
 ## Setup Commands
 Clone this repository
