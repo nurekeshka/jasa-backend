@@ -3,18 +3,33 @@ body {
     color: var(--tg-theme-text-color) !important;
 }
 
-a {
-    color: var(--tg-theme-link-color);
+.outline-btn {
+    color: var(--tg-theme-button-color) !important;
+    border-color: var(--tg-theme-button-color) !important;
+}
+.outline-btn:hover {
+    color: var(--tg-theme-button-text-color) !important;
+    background-color: var(--tg-theme-button-color) !important;
 }
 
-.tg-hint {
-    color: var(--tg-theme-hint-color);
+.tg-bg-color {
+    background-color: var(--tg-theme-bg-color) !important;
 }
-
-.tg-text {
+.tg-text-color {
     color: var(--tg-theme-text-color) !important;
 }
-
-.tg-background {
-    background-color: var(--tg-theme-bg-color);
+.tg-hint-color {
+    color: var(--tg-theme-hint-color) !important;
+}
+.tg-link-color {
+    color: var(--tg-theme-link-color) !important;
+}
+.tg-button-color {
+    background-color: var(--tg-theme-button-color) !important;
+}
+.tg-button-text-color {
+    background-color: var(--tg-theme-button-text-color) !important;
+}
+.tg-secondary-bg-color {
+    background-color: var(--tg-theme-secondary-bg-color) !important;
 }

@@ -50,7 +50,11 @@ class Event(models.Model):
 
     @property
     def num_likes(self):
-        return self.liked.all().count()
+        return self.liked.count()
+    
+    @property
+    def num_bookmarks(self):
+        return self.bookmarked.count()
 
 
 LIKE_CHOICES = (

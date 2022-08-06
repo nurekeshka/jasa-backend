@@ -48,7 +48,7 @@ def like_event(request):
 
         return JsonResponse({
             'state': 'liked' if user in event.liked.all() else 'unliked',
-            'likeCount': event.liked.count(),
+            'likeCount': event.num_likes,
             'eventId': event_id,
         })
     
@@ -70,7 +70,7 @@ def bookmark_event(request):
 
         return JsonResponse({
             'state': 'bookmarked' if user in event.bookmarked.all() else 'unbookmarked',
-            'bookmarkCount': event.bookmarked.count(),
+            'bookmarkCount': event.num_bookmarks,
             'eventId': event_id,
         })
     

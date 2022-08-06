@@ -1,68 +1,72 @@
-<article id="event-{{ event.id }}" class="container-fluid p-2 rounded event-container">
-  <h4>{{ event.title }}</h4>
-  <div class="row">
-    <div class="col-md-5">
-      <img src="{{ event.photo }}" alt="" class="mw-100 mh-100 rounded">
-      {% csrf_token %}
-      <ul class="d-flex p-0 m-0 list-unstyled">
-        <li class="p-2">
-          <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
-            {% if user not in event.liked.all %}
-                <i class="fa-regular fa-heart fa-lg tg-text"></i>
-            {% else %}
-                <i class="fa-solid fa-heart fa-lg text-danger"></i>
-            {% endif %}
-          </button>
-        </li>
-        {% comment %} 
-        TODO:
-        Think about if it is possible to open forward message by clicking on forward button.
-        Should send a link to the detail event page.
-
-        Have user get a copy of link to the detail event page.
-
-        {% endcomment %}
-        <li class="p-2"><i class="fa-regular fa-paper-plane fa-lg"></i></li>
-        <li class="p-2 ml-auto">
-          <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
-            {% if user not in event.bookmarked.all %}
-                <i class="fa-regular fa-bookmark fa-lg tg-text"></i>
-            {% else %}
-                <i class="fa-solid fa-bookmark fa-lg text-warning"></i>
-            {% endif %}
-          </button>
-        </li>
-      </ul>
-      <p class="mb-3 like-count">{{ event.liked.all.count }} likes</p>
-    </div>
-    <div class="col-md-7"> 
-      <p>
-        {% comment %} 
-        TODO: 
-        25 is currently a magic number.
-        Store it somewhere else as a constant.
-        {% endcomment %}
-        {% if show_full %}
-          {{ event.description|linebreaksbr }}
-        {% else %}
-          {{ event.description|linebreaksbr|truncatewords:25 }}
-          {% if event.description|length > 25 %}
-            <a href="{% url 'events:event_details' event.id %}">Read more</a>
+<article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color">
+  <img class="card-img-top" src="{{ event.photo }}" alt="{{ event.title }}">
+  <div class="header mb-2">
+    {% csrf_token %}
+    <ul class="d-flex p-0 m-0 list-unstyled">
+      <li class="p-1">
+        <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
+          {% if user not in event.liked.all %}
+              <i class="fa-regular fa-heart fa-lg tg-text"></i>
+          {% else %}
+              <i class="fa-solid fa-heart fa-lg text-danger"></i>
           {% endif %}
+        </button>
+      </li>
+      <li class="p-1">
+        <a 
+          class="tg-text-color"
+          href="https://t.me/share/url?url={{ DOMAIN }}{% url 'events:event_details' event.id %}"
+        >
+          <i class="fa-regular fa-paper-plane fa-lg"></i>
+        </a>
+      </li>
+      <li class="p-1 ml-auto">
+        <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
+          {% if user not in event.bookmarked.all %}
+              <i class="fa-regular fa-bookmark fa-lg tg-text"></i>
+          {% else %}
+              <i class="fa-solid fa-bookmark fa-lg text-warning"></i>
+          {% endif %}
+        </button>
+      </li>
+    </ul>
+    <p class="mb-0 like-count">{{ event.liked.all.count }} likes</p>
+  </div>
+  <div class="card-body p-0">
+    <h5 class="card-title">{{ event.title }}</h5>
+
+    <p class="card-text">
+      {% if show_full %}
+        {{ event.description|linebreaksbr }}
+      {% else %}
+        {{ event.description|linebreaksbr|truncatechars:EVENT_DESC_LENGTH }}
+
+        {% if event.description|length > EVENT_DESC_LENGTH %}
+          <a class="tg-link-color" href="{% url 'events:event_details' event.id %}">Read more</a>
         {% endif %}
-      </p>
+      {% endif %}
+    </p>
 
-      <p><i class="fa-regular fa-calendar"></i> {{ event.start_date }}</p>
-      <p><i class="fa-regular fa-map"></i> {{ event.address }}</p>
+    <ul class="p-0 list-unstyled">
+      <li class="p-0">
+        <small class="card-text tg-hint-color text-muted">
+          <i class="fa-regular fa-calendar-alt"></i> {{ event.start_date }}
+        </small>
+      </li>
+      <li class="p-0">
+        <small class="card-text tg-hint-color text-muted">
+          <i class="fa-regular fa-map"><v /i> {{ event.address }}
+        </small>
+      </li>
+    </ul>
 
-      {% comment %} 
-        TODO:
-        Figure out if the user actually signed in or not.
-        (Perhaps th user gets redirected to register confirmation page after signing up to the event.)
-      {% endcomment %}
-      <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
-        <button class="btn w-100 register-event-btn">Register now</button>
-      </a>
-    </div>
+    {% comment %} 
+      TODO:
+      Figure out if the user actually signed in or not.
+      (Perhaps th user gets redirected to register confirmation page after signing up to the event.)
+    {% endcomment %}
+    <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
+      <button class="btn w-100 outline-btn">Register now</button>
+    </a>
   </div>
 </article>
