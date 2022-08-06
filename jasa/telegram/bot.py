@@ -76,7 +76,7 @@ def login(message, user):
 @get_telegram_user(introduction)
 def logout(message, user):
     """Log out of your account."""
-    keyboard = context['logout']['keyboard'].create()
+    keyboard = context['logout']['keyboard'].create({ 'id': user.id})
     bot.send_message(
         user.id,
         context['logout']['text'],

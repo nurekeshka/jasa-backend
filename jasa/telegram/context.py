@@ -69,7 +69,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Already have an account? Log in here',
-                        extra=DOMAIN+'/auth/login/'
+                        extra=DOMAIN+'/auth/login/{id}'
                     )
                 ]
             ]
@@ -86,7 +86,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Log in',
-                        extra=DOMAIN+'/auth/login/'
+                        extra=DOMAIN+'/auth/login/{id}'
                     )
                 ],
                 [
@@ -111,7 +111,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Log out',
-                        extra=DOMAIN+'/auth/logout/'
+                        extra=DOMAIN+'/auth/logout/{id}'
                     )
                 ]
             ]

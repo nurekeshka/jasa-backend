@@ -18,6 +18,9 @@
         TODO:
         Think about if it is possible to open forward message by clicking on forward button.
         Should send a link to the detail event page.
+
+        Have user get a copy of link to the detail event page.
+
         {% endcomment %}
         <li class="p-2"><i class="fa-regular fa-paper-plane fa-lg"></i></li>
         <li class="p-2 ml-auto">
@@ -47,12 +50,10 @@
             <a href="{% url 'events:event_details' event.id %}">Read more</a>
           {% endif %}
         {% endif %}
-
       </p>
 
       <p><i class="fa-regular fa-calendar"></i> {{ event.start_date }}</p>
       <p><i class="fa-regular fa-map"></i> {{ event.address }}</p>
-
 
       {% comment %} 
         TODO:

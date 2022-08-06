@@ -6,8 +6,7 @@ User = get_user_model()
 
 
 class Event(models.Model):
-    # TODO: Add docstring to the class.
-    """"""
+    """Event model that saves necessary information about the event."""
 
     title = models.CharField('Event title', max_length=255)
     description = models.TextField('Event description')
