@@ -7,7 +7,7 @@ from telebot import types
 User = get_user_model()
 
 
-def get_telegram_user(setup_function):
+def get_telegram_user(setup_function=None):
     """
     Decorator function that gets existing `TelegramUser` model 
     from current request. If it doesn't exists, create a new model.

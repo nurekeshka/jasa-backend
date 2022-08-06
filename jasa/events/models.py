@@ -11,6 +11,7 @@ class Event(models.Model):
     title = models.CharField('Event title', max_length=255)
     description = models.TextField('Event description')
     sign_up_url = models.URLField('Sign up URL')
+    # TODO: Change the photo field to be a ImageField instead.
     photo = models.URLField('Event photo URL')
     liked = models.ManyToManyField(
         User, 

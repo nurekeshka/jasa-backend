@@ -1,6 +1,18 @@
 <article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color mb-5">
+  {% comment %} 
+  TODO: Display the events organizer.
+
+  Show the organizers profile picture and name. 
+  {% endcomment %}
+
+
+  {% comment %} 
+  TODO:
+  - Multiple images for the event
+  - Have images be stored in the database
+  {% endcomment %}
   <img class="card-img-top" src="{{ event.photo }}" alt="{{ event.title }}">
-  <div class="header mb-2">
+  <div class="header mb-2 px-2">
     {% csrf_token %}
     <ul class="d-flex p-0 m-0 list-unstyled">
       <li class="p-1">
@@ -32,7 +44,7 @@
     </ul>
     <p class="mb-0 like-count">{{ event.liked.all.count }} likes</p>
   </div>
-  <div class="card-body p-0">
+  <div class="card-body px-2">
     <h5 class="card-title">{{ event.title }}</h5>
 
     <p class="card-text">
@@ -53,6 +65,9 @@
           <i class="fa-regular fa-calendar-alt"></i> {{ event.start_date }}
         </small>
       </li>
+      {% comment %} 
+      TODO: Link to google maps for the event
+      {% endcomment %}
       <li class="p-0">
         <small class="card-text tg-hint-color text-muted">
           <i class="fa-regular fa-map"></i> {{ event.address }}
@@ -61,9 +76,13 @@
     </ul>
 
     {% comment %} 
-      TODO:
-      Figure out if the user actually signed in or not.
-      (Perhaps th user gets redirected to register confirmation page after signing up to the event.)
+      TODO: Figure out if the user actually signed in or not.
+
+      (Perhaps th user gets redirected to register confirmation
+       page after signing up to the event.)
+
+      If the user is anonymous, redirect them to open the bot, 
+      after which they will be redirected to the event details page.
     {% endcomment %}
     <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
       <button class="btn w-100 outline-btn">Register now</button>

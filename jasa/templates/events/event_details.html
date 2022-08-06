@@ -6,7 +6,9 @@
   <link rel="stylesheet" href="{% static 'css/events/index.css' %}">
 {% endblock %}
 
-{% block header_left %}<a href="{% url 'events:index' %}">Back</a>{% endblock %}
+{% block header_left %}
+  <a class="tg-link-color" href="{% url 'events:index' %}">Back</a>
+{% endblock %}
 {% block header_title %}{{event.title}}{% endblock %}
 
 {% block content %}

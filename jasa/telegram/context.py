@@ -2,15 +2,34 @@ from jasa.settings import DOMAIN
 from .utils import Keyboard, Button
 
 context = {
-    'introduction': {
+    'intro': {
         'text': (
             'Welcome to the Jasa bot!\n'
             'This bot helps you find ongoing events in your area.\n'
             'To save events to your calendar, simply type /signup '
-            'and follow the instructions.\n'
+            'and follow the instructions, or click the button below.\n'
             'If you want to know more about the bot, type /help.\n'
             'To get started, type /start.'
         ),
+        'keyboard': Keyboard(
+            keyboard_type='reply_keyboard',
+            buttons=[
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Login',
+                        extra=DOMAIN+'/auth/login/{id}'
+                    )
+                ],
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Signup',
+                        extra=DOMAIN+'/auth/signup/{id}'
+                    )
+                ]
+            ]
+        )
     },
     'start': {
         'text': (
@@ -23,12 +42,29 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Find events',
+                        text='🌐 Explore',
                         extra=DOMAIN+'/events/'
+                    ),
+                    Button(
+                        button_type='web_app',
+                        text='🔎 Search',
+                        extra=DOMAIN+'/signup/'
+                    ),
+                    Button(
+                        button_type='web_app',
+                        text='📅 Calendar',
+                        extra=DOMAIN+'/calendar/'
                     )
+                ],
+                [
+                    Button(
+                        button_type='web_app',
+                        text='👤 Profile',
+                        extra=DOMAIN+'/profile/'
+                    ),
                 ]
             ]
-        )
+        ),
     },
     'help': {
         'text': (
@@ -115,6 +151,12 @@ context = {
                     )
                 ]
             ]
+        )
+    },
+    'about': {
+        'text': (
+            'This bot was created by @H_reugo\n'
+            'Github - https://github.com/Hereugo\n'
         )
     }
 }
