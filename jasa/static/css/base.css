@@ -25,10 +25,10 @@ button:focus {
     color: var(--tg-theme-text-color) !important;
 }
 .tg-hint-color {
-    color: var(--tg-theme-hint-color) !important;
+    color: var(--tg-theme-hint-color, var(--secondary)) !important;
 }
 .tg-link-color {
-    color: var(--tg-theme-link-color) !important;
+    color: var(--tg-theme-link-color, var(--primary)) !important;
 }
 .tg-button-color {
     background-color: var(--tg-theme-button-color) !important;

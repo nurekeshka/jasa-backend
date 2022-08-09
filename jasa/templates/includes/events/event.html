@@ -1,97 +1,103 @@
 <article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color mb-5">
-  {% comment %} 
-  TODO: Display the events organizer.
+  <div class="row">
+    {% comment %} 
+    TODO: Display the events organizer.
 
-  Show the organizers profile picture and name. 
-  {% endcomment %}
+    Show the organizers profile picture and name. 
+    {% endcomment %}
 
-
-  {% comment %} 
-  TODO:
-  - Multiple images for the event
-  - Have images be stored in the database
-  {% endcomment %}
-  <img class="card-img-top" src="{{ event.photo }}" alt="{{ event.title }}">
-  <div class="header">
-    {% csrf_token %}
-    <ul class="d-flex p-0 m-0 list-unstyled">
-      <li class="px-2">
-        <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
-          {% if user not in event.liked.all %}
-              <i class="fa-regular fa-heart fa-lg tg-text-color"></i>
-          {% else %}
-              <i class="_selected fa-solid fa-heart fa-lg text-danger pulse"></i>
-          {% endif %}
-        </button>
-      </li>
-      <li class="px-2">
-        <a 
-          class="tg-text-color"
-          href="https://t.me/share/url?url={{ DOMAIN }}{% url 'events:event_details' event.id %}"
-        >
-          <i class="fa-regular fa-paper-plane fa-lg"></i>
-        </a>
-      </li>
-      <li class="px-2 ml-auto">
-        <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
-          {% if user not in event.bookmarked.all %}
-              <i class="fa-regular fa-bookmark fa-lg tg-text-color"></i>
-          {% else %}
-              <i class="_selected fa-solid fa-bookmark fa-lg text-warning"></i>
-          {% endif %}
-        </button>
-      </li>
-    </ul>
-    <label 
-      for="like-button" 
-      id="like-counter"
-      data-count="{{event.liked.all.count}}"
-    >
-      {{ event.liked.all.count }} likes
-    </label>
-  </div>
-  <div class="card-body py-0 px-2">
-    <h5 class="card-title">{{ event.title }}</h5>
-
-    <p class="card-text">
-      {% if show_full %}
-        {{ event.description|linebreaksbr }}
-      {% else %}
-        {{ event.description|linebreaksbr|truncatechars:EVENT_DESC_LENGTH }}
-
-        {% if event.description|length > EVENT_DESC_LENGTH %}
-          <a class="tg-link-color" href="{% url 'events:event_details' event.id %}">Read more</a>
-        {% endif %}
-      {% endif %}
-    </p>
-
-    <ul class="p-0 list-unstyled">
-      <li class="p-0">
-        <small class="card-text tg-hint-color text-muted">
-          <i class="fa-regular fa-calendar-alt"></i> {{ event.start_date }}
-        </small>
-      </li>
-      {% comment %} 
-      TODO: Link to google maps for the event
-      {% endcomment %}
-      <li class="p-0">
-        <small class="card-text tg-hint-color text-muted">
-          <i class="fa-regular fa-map"></i> {{ event.address }}
-        </small>
-      </li>
-    </ul>
 
     {% comment %} 
-      TODO: Figure out if the user actually signed in or not.
-
-      (Perhaps th user gets redirected to register confirmation
-       page after signing up to the event.)
-
-      If the user is anonymous, redirect them to open the bot, 
-      after which they will be redirected to the event details page.
+    TODO:
+    - Multiple images for the event
+    - Have images be stored in the database
     {% endcomment %}
-    <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
-      <button class="btn w-100 outline-btn">Register now</button>
-    </a>
+    <div class="col-md-6">  
+      <img class="w-100" src="{{ event.photo }}" alt="{{ event.title }}">
+      <div class="header">
+        {% csrf_token %}
+        <ul class="d-flex p-0 m-0 list-unstyled">
+          <li class="px-2">
+            <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
+              {% if user not in event.liked.all %}
+                  <i class="fa-regular fa-heart fa-lg tg-text-color"></i>
+              {% else %}
+                  <i class="_selected fa-solid fa-heart fa-lg text-danger pulse"></i>
+              {% endif %}
+            </button>
+          </li>
+          <li class="px-2">
+            <a 
+              class="tg-text-color"
+              href="https://t.me/share/url?url={{ DOMAIN }}{% url 'events:event_details' event.id %}"
+            >
+              <i class="fa-regular fa-paper-plane fa-lg"></i>
+            </a>
+          </li>
+          <li class="px-2 ml-auto">
+            <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
+              {% if user not in event.bookmarked.all %}
+                  <i class="fa-regular fa-bookmark fa-lg tg-text-color"></i>
+              {% else %}
+                  <i class="_selected fa-solid fa-bookmark fa-lg text-warning"></i>
+              {% endif %}
+            </button>
+          </li>
+        </ul>
+        <label 
+          for="like-button" 
+          id="like-counter"
+          data-count="{{event.liked.all.count}}"
+        >
+          {{ event.liked.all.count }} likes
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-body py-0 px-2">
+        <h5 class="card-title">{{ event.title }}</h5>
+  
+        <p class="card-text">
+          {% if show_full %}
+            {{ event.description|linebreaksbr }}
+          {% else %}
+            {{ event.description|linebreaksbr|truncatechars:EVENT_DESC_LENGTH }}
+  
+            {% if event.description|length > EVENT_DESC_LENGTH %}
+              <a class="tg-link-color" href="{% url 'events:event_details' event.id %}">Read more</a>
+            {% endif %}
+          {% endif %}
+        </p>
+  
+        <ul class="p-0 list-unstyled">
+          <li class="p-0">
+            <small class="card-text tg-hint-color text-muted">
+              <i class="fa-regular fa-calendar-alt"></i> {{ event.start_date }}
+            </small>
+          </li>
+          {% comment %} 
+          TODO: Link to google maps for the event
+          {% endcomment %}
+          <li class="p-0">
+            <small class="card-text tg-hint-color text-muted">
+              <i class="fa-regular fa-map"></i> {{ event.address }}
+            </small>
+          </li>
+        </ul>
+  
+        {% comment %} 
+          TODO: Figure out if the user actually signed in or not.
+  
+          (Perhaps th user gets redirected to register confirmation
+          page after signing up to the event.)
+  
+          If the user is anonymous, redirect them to open the bot, 
+          after which they will be redirected to the event details page.
+        {% endcomment %}
+        <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
+          <button class="btn w-100 outline-btn">Register now</button>
+        </a>
+      </div>
+    </div>
   </div>
 </article>
