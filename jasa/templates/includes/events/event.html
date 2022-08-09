@@ -12,19 +12,19 @@
   - Have images be stored in the database
   {% endcomment %}
   <img class="card-img-top" src="{{ event.photo }}" alt="{{ event.title }}">
-  <div class="header mb-2 px-2">
+  <div class="header">
     {% csrf_token %}
     <ul class="d-flex p-0 m-0 list-unstyled">
-      <li class="p-1">
+      <li class="px-2">
         <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
           {% if user not in event.liked.all %}
               <i class="fa-regular fa-heart fa-lg tg-text-color"></i>
           {% else %}
-              <i class="fa-solid fa-heart fa-lg text-danger"></i>
+              <i class="_selected fa-solid fa-heart fa-lg text-danger pulse"></i>
           {% endif %}
         </button>
       </li>
-      <li class="p-1">
+      <li class="px-2">
         <a 
           class="tg-text-color"
           href="https://t.me/share/url?url={{ DOMAIN }}{% url 'events:event_details' event.id %}"
@@ -32,19 +32,25 @@
           <i class="fa-regular fa-paper-plane fa-lg"></i>
         </a>
       </li>
-      <li class="p-1 ml-auto">
+      <li class="px-2 ml-auto">
         <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
           {% if user not in event.bookmarked.all %}
               <i class="fa-regular fa-bookmark fa-lg tg-text-color"></i>
           {% else %}
-              <i class="fa-solid fa-bookmark fa-lg text-warning"></i>
+              <i class="_selected fa-solid fa-bookmark fa-lg text-warning"></i>
           {% endif %}
         </button>
       </li>
     </ul>
-    <p class="mb-0 like-count">{{ event.liked.all.count }} likes</p>
+    <label 
+      for="like-button" 
+      id="like-counter"
+      data-count="{{event.liked.all.count}}"
+    >
+      {{ event.liked.all.count }} likes
+    </label>
   </div>
-  <div class="card-body px-2">
+  <div class="card-body py-0 px-2">
     <h5 class="card-title">{{ event.title }}</h5>
 
     <p class="card-text">

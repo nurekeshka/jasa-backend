@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/events/like_button.css' %}">
+{% endblock %}
+
+
 {% block title %}Events{% endblock title %}
 
 {% block header_title %}Recent events{% endblock %}

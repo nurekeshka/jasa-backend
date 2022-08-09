@@ -1,4 +1,4 @@
-function setPostHandler(selector, url, attr_data, callback) {
+function setPostHandler(selector, url, attr_data, setUp, checkUp) {
     $(document).on('click', selector, function (e) {
         e.preventDefault();
 
@@ -11,6 +11,8 @@ function setPostHandler(selector, url, attr_data, callback) {
             if (value) data[key] = value;
         }
 
+        setUp(data);
+
         $.ajax({
             type: 'POST',
             url: url,
@@ -20,7 +22,7 @@ function setPostHandler(selector, url, attr_data, callback) {
                 action: 'POST'
             },
             success: function(data) {
-                callback(data);
+                checkUp(data);
             }
         });
     });

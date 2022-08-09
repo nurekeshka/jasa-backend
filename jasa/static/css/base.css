@@ -3,6 +3,12 @@ body {
     color: var(--tg-theme-text-color) !important;
 }
 
+button:focus {
+    outline-style: none;
+    box-shadow: none !important;
+}
+
+
 .outline-btn {
     color: var(--tg-theme-button-color) !important;
     border-color: var(--tg-theme-button-color) !important;

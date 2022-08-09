@@ -4,42 +4,52 @@ setPostHandler(
     like_url, 
     ['event-id'],
     (data) => {
-        if (data.error) {
-            alert(data.error);
+        let eventId = data['event-id'];
+        let article = $(`#event-${eventId}`);
+        let likeIcon = article.find('#like-button i');
+        let likeCount = article.find('#like-counter');
+        let count = parseInt(likeCount.attr('data-count'));
+
+        likeIcon.toggleClass('_selected');
+        likeIcon.toggleClass('fa-solid fa-regular text-danger tg-text-color pulse');
+
+        if (likeIcon.hasClass('_selected')) {
+            count += 1;
+        } else {
+            count -= 1;
+        }
+        likeCount.attr('data-count', count);
+        likeCount.text(`${count} likes`);
+    },
+    (data) => {
+        if (data['error']) {
+            alert(data['error']);
             return;
         }
+        let likeCount = $(`#event-${data['event-id']} #like-counter`);
 
-        likeButton = $(`#event-${data.eventId} #like-button`);
-        likeCount = $(`#event-${data.eventId} .like-count`);
-
-        if (data.state == 'liked') {
-            likeButton.html(`<i class="fa-solid fa-heart fa-lg text-danger"></i>`);
-        }
-        if (data.state == 'unliked') {
-            likeButton.html(`<i class="fa-regular fa-heart fa-lg tg-text"></i>`);
-        }
-        likeCount.text(`${data.likeCount} likes`);
+        likeCount.attr('data-count', data['count']);
+        likeCount.text(`${data['count']} likes`);
     }
 );
 
 // For the bookmark button.
 setPostHandler(
-    '#bookmark-button', 
-    bookmark_url, 
+    '#bookmark-button',
+    bookmark_url,
     ['event-id'],
     (data) => {
-        if (data.error) {
-            alert(data.error);
+        let eventId = data['event-id'];
+        let article = $(`#event-${eventId}`);
+        let bookmarkIcon = article.find('#bookmark-button i');
+
+        bookmarkIcon.toggleClass('_selected');
+        bookmarkIcon.toggleClass('fa-solid fa-regular tg-text-color text-warning')
+    },
+    (data) => {
+        if (data['error']) {
+            alert(data['error']);
             return;
-        }
-
-        bookmarkButton = $(`#event-${data.eventId} #bookmark-button`);
-
-        if (data.state == 'bookmarked') {
-            bookmarkButton.html(`<i class="fa-solid fa-bookmark fa-lg text-warning"></i>`);
-        }
-        if (data.state == 'unbookmarked') {
-            bookmarkButton.html(`<i class="fa-regular fa-bookmark fa-lg tg-text"></i>`);
         }
     }
 );
