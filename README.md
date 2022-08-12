@@ -1,6 +1,6 @@
 # jasa-backend
 
-## TODO
+## 📝 TODO
 - [x] Design Signup/Login page with bootstrap
 - [ ] Design Logout page with bootstrap
 - [ ] Work on TODOs
@@ -10,20 +10,20 @@
 - [x] Have well written instruction on how to setup `README.md`
 - [x] TDD 
 
-## Bugs
+## 🐛 Bugs
 - [ ] Background issues with telegram old version
 - [x] Signup doesn't work
 - [ ] Intro message is not sent
 - [ ] Guest users can still like/bookmark events
 - [ ] Password input values are shown
 
-## Useful links
+## 🔗 Useful links
 - https://pythonsansar.com/implement-infinite-scrolling-django/
 - https://habr.com/ru/post/666278/
 - https://core.telegram.org/bots/webapps
 - https://metatags.io/
 
-## Setup Commands
+## 🛠 Setup Commands
 Clone this repository
 1. For Http
 ```
