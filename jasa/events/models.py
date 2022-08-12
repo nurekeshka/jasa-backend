@@ -8,6 +8,12 @@ User = get_user_model()
 class Event(models.Model):
     """Event model that saves necessary information about the event."""
 
+    organizer = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='events',
+        verbose_name='Event organizer',
+    )
     title = models.CharField('Event title', max_length=255)
     description = models.TextField('Event description')
     sign_up_url = models.URLField('Sign up URL')
@@ -17,31 +23,45 @@ class Event(models.Model):
         User, 
         related_name='liked_events',
         default=None,
-        blank = True,
+        blank=True,
         verbose_name="likes"
     )
     bookmarked = models.ManyToManyField(
         User,
         related_name='bookmarked_events',
         default=None,
-        blank = True,
+        blank=True,
         verbose_name="bookmarks"
     )
 
-    pub_date = models.DateTimeField('Event publish date', auto_now_add=True)
+    pub_date = models.DateTimeField(
+        'Event publish date',
+        auto_now_add=True,
+    )
 
-    start_date = models.DateTimeField('Event start date')
-    end_date = models.DateTimeField('Event end date')
+    start_date = models.DateTimeField(
+        'Event start date',
+        auto_now_add=True,
+    )
+    end_date = models.DateTimeField(
+        'Event end date',
+        auto_now_add=True,
+    )
 
-    address = models.CharField('Address', max_length=255)
-    longitude = models.FloatField('Longitude')
-    latitude = models.FloatField('Latitude')
-
-    organizer = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='events',
-        verbose_name='Event organizer',
+    address = models.CharField(
+        'Address',
+        max_length=255,
+        blank=True,
+    )
+    longitude = models.FloatField(
+        'Longitude',
+        null=True,
+        blank=True,
+    )
+    latitude = models.FloatField(
+        'Latitude',
+        null=True,
+        blank=True
     )
 
     class Meta:
@@ -65,11 +85,28 @@ LIKE_CHOICES = (
 
 
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    value = models.CharField(choices=LIKE_CHOICES, default='like', max_length=10)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+    )
+    value = models.CharField(
+        choices=LIKE_CHOICES,
+        default='like',
+        max_length=10,
+    )
 
 
 class Bookmark(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+    )
+

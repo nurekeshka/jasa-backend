@@ -6,7 +6,11 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
-    path('signup/<int:user_id>/', views.SignUp.as_view(), name='signup'),
+    path(
+        'signup/<int:user_id>/',
+        views.SignUp.as_view(template_name='users/signup.html'),
+        name='signup'
+    ),
     path(
         'logout/<int:user_id>/', 
         views.Logout.as_view(template_name='users/logout.html'), 

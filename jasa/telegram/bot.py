@@ -1,6 +1,6 @@
 from telebot import TeleBot
 
-from jasa.settings import BOT_TOKEN
+from jasa.settings import BOT_TOKEN, DOMAIN
 from .decorators import get_telegram_user
 from .context import context
 
@@ -95,3 +95,9 @@ def about(message, user):
         context['about']['text'],
         parse_mode='html',
     )
+
+
+url = f'{DOMAIN}'
+print(f'Bot is now running on server {url}')
+bot.remove_webhook()
+bot.set_webhook(url=url)

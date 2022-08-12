@@ -1,12 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Signup{% endblock %}
 
 {% block content %}
-  <p>{{ user_id }}</p>
-  <form method="post" action="{% url 'users:signup' user_id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register">
-  </form>
+{% load user_filters %}
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card tg-bg-color border-0">
+        <div class="card-body p-0">    
+          <img 
+            class="mx-auto d-block my-3" 
+            src="{% static 'img/jasa-logo-final.png' %}" alt="Jasa Logo" width="20%"
+          />
+          {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}            
+                  <div class="alert alert-danger">
+                    {{ error|escape }}
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                  {{ error|escape }}
+                </div>
+              {% endfor %}
+          {% endif %}
+          <form 
+            class="p-4"
+            method="post"
+            action="{% url 'users:signup' user_id %}"
+            >
+              {% csrf_token %}
+              {% for field in form %}
+                <div class="form-group mb-4">
+
+                  <input 
+                    type="{{ field.type }}"
+                    class="form-control {{ field.css_class }}"
+                    id="{{ field.id }}"
+                    name="{{ field.name }}"
+                    placeholder="{{ field.label }}"
+                    {% if field.value %}
+                      value="{{ field.value }}"
+                    {% endif %}
+                    {% if field.required %}
+                      required
+                    {% endif %}
+                  />
+    
+                  {% if field.help_text %}
+                    <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                      {{ field.help_text|safe }}
+                    </small>
+                  {% endif %}
+                </div>
+              {% endfor %}
+
+              <button type="submit" class="btn outline-btn w-100">
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <span class="text-muted">
+        <small>
+          Already have an account? <a href="{% url 'users:login' user_id %}">Login</a>
+        </small>
+      </span>
+    </div>
+  </div>
 {% endblock %}

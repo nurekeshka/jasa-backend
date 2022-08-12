@@ -28,7 +28,7 @@
     <header class="container my-2">
       <ul class="d-flex justify-content-between list-unstyled mb-0">
         <li class="p-0 col-2 text-left">{% block header_left %}{% endblock %}</li>
-        <li class="p-0 col text-center">{% block header_title %}Header title{% endblock %}</li>
+        <li class="p-0 col text-center">{% block header_title %}{% endblock %}</li>
         <li class="p-0 col-2 text-right">
           {% block header_right %}
             <a class="tg-link-color" href="{{ CURRENT_URL }}">

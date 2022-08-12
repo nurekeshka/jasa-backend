@@ -13,7 +13,7 @@
 {% block content %}
   <div class="event-list">
     {% for event in page_obj %}
-      {% include 'includes/events/event.html' %}
+      {% include 'events/includes/event.html' %}
     {% endfor %}
     {% if page_obj.has_next %}
       <p class="pagination">

@@ -1,31 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
-{% block header_title %}Login{% endblock %}
 {% block content %}
+{% load user_filters %}
   <div class="row justify-content-center">
-    <div class="col-md-8 p-5">
-      <div class="card tg-bg-color">
-        <div class="card-header">Login</div>
-        <div class="card-body">
+    <div class="col-md-12">
+      <div class="card tg-bg-color border-0">
+        <div class="card-body p-0">    
+          <img 
+            class="mx-auto d-block my-3" 
+            src="{% static 'img/jasa-logo-final.png' %}" alt="Jasa Logo" width="20%"
+          />
           {% if form.errors %}
-            <div class="alert alert-danger">
-              {{ form.errors }}
-            </div>
+            {% for field in form %}
+              {% for error in field.errors %}            
+                <div class="alert alert-danger">
+                  {{ error|escape }}
+                </div>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                {{ error|escape }}
+              </div>
+            {% endfor %}
           {% endif %}
           <form 
+            class="p-4"
             method="post"
             {% if action_url %}
               action="{% url action_url %}"
             {% endif %}
-          >
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Login">
-          </form>
+            >
+              {% csrf_token %}
+
+              {% for field in form %}
+                <div class="form-group mb-4">
+
+                  <input 
+                    type="{{ field.type }}"
+                    class="form-control {{ field.css_class }}"
+                    id="{{ field.id }}"
+                    name="{{ field.name }}"
+                    placeholder="{{ field.label }}"
+                    {% if field.value %}
+                      value="{{ field.value }}"
+                    {% endif %}
+                    {% if field.required %}
+                      required
+                    {% endif %}
+                  />
+    
+                  {% if field.help_text %}
+                    <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
+                      {{ field.help_text|safe }}
+                    </small>
+                  {% endif %}
+                </div>
+              {% endfor %}
+              
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-start mb-4 align-items-center">
+                <input class="form-check-input" type="checkbox" value="" id="remember_password" />
+                <label class="form-check-label" for="remember_password">
+                  <small>Remember password</small>
+                </label>
+
+                <a href="#" class="ml-auto">
+                  <small>Forgot password?</small>
+                </a>
+              </div>
+
+              <button type="submit" class="btn outline-btn w-100">
+                Login
+              </button>
+
+            </form>
+          </div>
         </div>
       </div>
+    
+      <span class="text-muted">
+        <small>
+          Don't have an account? <a href="{% url 'users:signup' user_id %}">Register</a>
+        </small>
+      </span>
     </div>
   </div>
 {% endblock %}

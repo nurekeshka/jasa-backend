@@ -9,11 +9,11 @@ from telegram.models import TelegramUser
 
 class SignUp(CreateView):
     form_class = CreationForm
-
-    success_url = reverse_lazy('users:index')
-    template_name = 'users/signup.html'
+    success_url = reverse_lazy('events:index')
 
     def form_valid(self, form):
+        print("Hello?")
+        print(self.kwargs['user_id'])
         user_id = self.kwargs['user_id']
         telegram_user = TelegramUser.objects.get(id=user_id)
         telegram_user.user = form.save()

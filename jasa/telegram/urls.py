@@ -8,7 +8,6 @@ from . import views
 app_name = 'telegram'
 
 urlpatterns = [
-    path('', views.webhook, name='webhook'),
     path(
         f'{BOT_TOKEN}/', 
         csrf_exempt(views.Process_updates.as_view()), 
