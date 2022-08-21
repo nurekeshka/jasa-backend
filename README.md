@@ -1,6 +1,4 @@
-# jasa-backend
-
-## 📝 TODO
+# 📝 TODO
 - [x] Design Signup/Login page with bootstrap
 - [ ] Design Logout page with bootstrap
 - [ ] Work on TODOs
@@ -10,20 +8,22 @@
 - [x] Have well written instruction on how to setup `README.md`
 - [x] TDD 
 
-## 🐛 Bugs
+# 🐛 Bugs
 - [ ] Background issues with telegram old version
 - [x] Signup doesn't work
-- [ ] Intro message is not sent
+- [x] Intro message is not sent
 - [ ] Guest users can still like/bookmark events
 - [ ] Password input values are shown
 
-## 🔗 Useful links
+# 🔗 Useful links
 - https://pythonsansar.com/implement-infinite-scrolling-django/
 - https://habr.com/ru/post/666278/
 - https://core.telegram.org/bots/webapps
 - https://metatags.io/
 
-## 🛠 Setup Commands
+
+
+# 🛠 Setup Commands
 Clone this repository
 1. For Http
 ```
@@ -34,6 +34,18 @@ git clone
 git clone git@github.com:nurekeshka/jasa-backend.git
 ```
 
+
+## Host on a server
+Change `DOMAIN` key in `.env` file to your domain from ngrok. Don't forget to remove `/` at the end.
+```
+...
+DOMAIN = https://website.com
+...
+```
+
+Follow hosting instruction of your domain provider
+
+### Host on your local server
 Goto the projects directory
 ```
 cd YOUR_PROJECT_PATH
@@ -64,6 +76,8 @@ Goto projects app directory
 cd jasa
 ```
 
+## Using Ngrok
+
 Setup ngrok server. Make sure to connect to the same port as in `.env` file (default in `.env` file: 8000)
 ```
 ngrok http 8000
@@ -80,4 +94,3 @@ Then, simply run the server using this command.
 ```
 python3 manage.py runserver
 ```
-

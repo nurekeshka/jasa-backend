@@ -1,103 +1,111 @@
+from dataclasses import dataclass
 from telebot import TeleBot
+from telebot.handler_backends import BaseMiddleware, SkipHandler
 
-from jasa.settings import BOT_TOKEN, DOMAIN
-from .decorators import get_telegram_user
+from jasa.settings import BOT_TOKEN
 from .context import context
+from .models import TelegramUser
 
 
-bot = TeleBot(BOT_TOKEN)
+bot = TeleBot(BOT_TOKEN, use_class_middlewares=True)
+
+
+@dataclass
+class Middleware(BaseMiddleware):
+    update_types = ['message']
+
+    def pre_process(self, message, data):
+        """
+        Function that gets existing `TelegramUser` model 
+        from current request. If it doesn't exists, create a new model.
+        """
+        data['user'], created = TelegramUser.objects.get_or_create(
+            id=message.from_user.id,
+            defaults={
+                'username': message.from_user.username,
+                'first_name': message.from_user.first_name,
+                'last_name': message.from_user.last_name,
+            }
+        )
+        if created:
+            intro(message, data)
+            return SkipHandler()
+
 
 
 @bot.message_handler(commands=['intro'])
-@get_telegram_user()
-def intro(message, user):
-    """Sends an intro message that guides users on how to use the app."""
-    # TODO: One keyboard click change to the /start keyboard 
-    keyboard = context['intro']['keyboard'].create(
-        sub_values={ 'id': user.id },
-        options={ 'one_time_keyboard': True }
-    )
+def intro(message, data):
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['intro']['text'],
-        reply_markup=keyboard,
         parse_mode='markdown'
     )
 
 
 @bot.message_handler(commands=['start'])
-@get_telegram_user(intro)
-def start(message, user):
+def start(message, data):
     """Send a welcome back text message."""
     keyboard = context['start']['keyboard'].create()
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['start']['text'].format(
-            user=user.first_name
+            user=data['user'].first_name
         ),
         reply_markup=keyboard,
     )
 
 
 @bot.message_handler(commands=['help'])
-@get_telegram_user(intro)
-def help(message, user):
+def help(message, data):
     """Send a message listing all available commands."""
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['help']['text'],
         parse_mode='markdown'
     )
 
 
 @bot.message_handler(commands=['signup'])
-@get_telegram_user(intro)
-def signup(message, user):
+def signup(message, data):
     """Send a sign up message."""
-    keyboard = context['signup']['keyboard'].create({ 'id': user.id })
+    keyboard = context['signup']['keyboard'].create({ 'id': data['user'].id })
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['signup']['text'],
         reply_markup=keyboard,
     )
 
 
 @bot.message_handler(commands=['login'])
-@get_telegram_user(intro)
-def login(message, user):
+def login(message, data):
     """Log in to your account."""
-    keyboard = context['login']['keyboard'].create({ 'id': user.id})
+    keyboard = context['login']['keyboard'].create({ 'id': data['user'].id})
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['login']['text'],
         reply_markup=keyboard,
     )
 
 
 @bot.message_handler(commands=['logout'])
-@get_telegram_user(intro)
-def logout(message, user):
+def logout(message, data):
     """Log out of your account."""
-    keyboard = context['logout']['keyboard'].create({ 'id': user.id})
+    keyboard = context['logout']['keyboard'].create({ 'id': data['user'].id})
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['logout']['text'],
         reply_markup=keyboard,
         parse_mode='markdown',
     )
 
 @bot.message_handler(commands=['about'])
-@get_telegram_user(intro)
-def about(message, user):
+def about(message, data):
     """Send an about message."""
     bot.send_message(
-        user.id,
+        data['user'].id,
         context['about']['text'],
         parse_mode='html',
     )
 
 
-url = f'{DOMAIN}'
-print(f'Bot is now running on server {url}')
-bot.remove_webhook()
-bot.set_webhook(url=url)
+bot.setup_middleware(Middleware())

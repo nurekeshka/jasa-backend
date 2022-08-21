@@ -6,6 +6,13 @@ from .bot import bot
 from jasa.settings import DOMAIN, BOT_TOKEN
 
 
+def set_webhook(request):
+    """Set the webhook."""
+    bot.remove_webhook()
+    bot.set_webhook(url=f'{DOMAIN}/{BOT_TOKEN}/')
+    return HttpResponse('OK', status=200)
+
+
 class Process_updates(View):
     """Receive requests from telegram API."""
 

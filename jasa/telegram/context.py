@@ -10,25 +10,6 @@ context = {
             'and follow the instructions, or click the button below.\n'
             'If you want to know more about the bot, type /help.\n'
             'To get started, type /start.'
-        ),
-        'keyboard': Keyboard(
-            keyboard_type='reply_keyboard',
-            buttons=[
-                [
-                    Button(
-                        button_type='web_app',
-                        text='Login',
-                        extra=DOMAIN+'/auth/login/{id}'
-                    )
-                ],
-                [
-                    Button(
-                        button_type='web_app',
-                        text='Signup',
-                        extra=DOMAIN+'/auth/signup/{id}'
-                    )
-                ]
-            ]
         )
     },
     'start': {
