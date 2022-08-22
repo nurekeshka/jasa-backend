@@ -1,12 +1,12 @@
 # 📝 TODO
-- [x] Design Signup/Login page with bootstrap
-- [ ] Design Logout page with bootstrap
 - [ ] Work on TODOs
 - [ ] Profile page
 - [ ] Create Tag model
+- [ ] Design Logout page with bootstrap
 - [ ] Display the *Relationships* design on github using mermaid js
-- [x] Have well written instruction on how to setup `README.md`
-- [x] TDD 
+- [x] Write tests for authintication methods
+- [x] Change url field for image to image field in events models
+- [x] Add TKEditor in admin panel
 
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
@@ -36,7 +36,8 @@ git clone git@github.com:nurekeshka/jasa-backend.git
 
 
 ## Host on a server
-Change `DOMAIN` key in `.env` file to your domain from ngrok. Don't forget to remove `/` at the end.
+Change `DOMAIN` key in `.env` file to your domain from ngrok. Don't forget to 
+remove `/` at the end.
 ```
 ...
 DOMAIN = https://website.com

@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db import models
+from ckeditor.widgets import CKEditorWidget
+
 
 from .models import Event, Like, Bookmark
 
@@ -8,9 +11,14 @@ class EventAdmin(admin.ModelAdmin):
         'pk',
         'title', 
         'pub_date', 
-        'description', 
+        'short_description',
+        'long_description',
         'start_date', 'end_date'
     )
+    formfield_overrides = {
+        models.TextField: {'widget': CKEditorWidget}
+    }
+
 
 admin.site.register(Like)
 admin.site.register(Bookmark)

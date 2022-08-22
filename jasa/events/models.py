@@ -14,11 +14,28 @@ class Event(models.Model):
         related_name='events',
         verbose_name='Event organizer',
     )
-    title = models.CharField('Event title', max_length=255)
-    description = models.TextField('Event description')
-    sign_up_url = models.URLField('Sign up URL')
+    title = models.CharField(
+        'Event title',
+        max_length=255
+    )
+    short_description = models.CharField(
+        'Event short description',
+        max_length=255,
+        blank=True
+    )
+    long_description = models.TextField(
+        'Event detailed description',
+        blank=True
+    )
+    sign_up_url = models.URLField(
+        'Sign up URL'
+    )
     # TODO: Change the photo field to be a ImageField instead.
-    photo = models.URLField('Event photo URL')
+    photo = models.ImageField(
+        'Event photo',
+        upload_to='events/',
+        blank=True,
+    )
     liked = models.ManyToManyField(
         User, 
         related_name='liked_events',

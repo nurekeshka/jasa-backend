@@ -1,6 +1,8 @@
 .env
+media/
 
-# Coverage
+# Covera
+ge
 htmlcov/
 .coverage
 .coverage.*

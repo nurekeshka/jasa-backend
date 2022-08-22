@@ -28,6 +28,8 @@ class SignUp(CreateView):
 
 
 class Login(LoginView):
+    success_url = reverse_lazy('events:index')
+
     def form_valid(self, form):
         user_id = self.kwargs['user_id']
         telegram_user = TelegramUser.objects.get(id=user_id)

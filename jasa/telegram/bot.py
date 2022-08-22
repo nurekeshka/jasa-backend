@@ -35,6 +35,7 @@ class Middleware(BaseMiddleware):
 
 @bot.message_handler(commands=['intro'])
 def intro(message, data):
+    """Send an introduction message that guides users on how to use the app."""
     bot.send_message(
         data['user'].id,
         context['intro']['text'],

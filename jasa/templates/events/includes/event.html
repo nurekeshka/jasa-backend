@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 <article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color mb-5">
   <div class="row">
     {% comment %} 
@@ -9,13 +11,15 @@
 
     {% comment %} 
     TODO:
-    - Multiple images for the event
-    - Have images be stored in the database
+    - [ ] Multiple images for the event
+    - [x] Have images be stored in the database
 
     https://getbootstrap.com/docs/4.3/components/carousel/
     {% endcomment %}
     <div class="col-md-6">
-      <img class="w-100" src="{{ event.photo }}" alt="{{ event.title }}">
+      {% thumbnail event.photo "700" as im %}
+        <img class="w-100" src="{{ im.url }}" alt="{{ event.title }}">
+      {% endthumbnail %}
       <div class="header">
         {% csrf_token %}
         <ul class="d-flex p-0 m-0 list-unstyled">
@@ -61,14 +65,16 @@
   
         <p class="card-text">
           {% if show_full %}
-            {{ event.description|linebreaksbr }}
+            {{ event.long_description|safe}}
           {% else %}
-            {{ event.description|linebreaksbr|truncatechars:EVENT_DESC_LENGTH }}
-  
-            {% if event.description|length > EVENT_DESC_LENGTH %}
-              <a class="tg-link-color" href="{% url 'events:event_details' event.id %}">Read more</a>
-            {% endif %}
-          {% endif %}
+            {{ event.short_description|safe}}
+            <a
+              class="tg-link-color" 
+              href="{% url 'events:event_details' event.id %}"
+            >
+              Read more
+            </a>
+        {% endif %}
         </p>
   
         <ul class="p-0 list-unstyled">

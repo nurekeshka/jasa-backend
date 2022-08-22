@@ -12,7 +12,7 @@ urlpatterns = [
         name='signup'
     ),
     path(
-        'logout/<int:user_id>/', 
+        'logout/<int:user_id>/',
         views.Logout.as_view(template_name='users/logout.html'), 
         name='logout'
     ),

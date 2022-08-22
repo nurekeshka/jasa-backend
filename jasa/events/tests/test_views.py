@@ -1,4 +1,6 @@
-from typing import List, Type
+from typing import List
+from http import HTTPStatus
+
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -29,15 +31,24 @@ class EventsViewTests(TestCase):
         self.event = Event.objects.create(
             organizer=self.organizer,
             title='Event title',
-            description='Event description',
             sign_up_url='https://google.com',
-            photo='https://picsum.photos/200/300',
         )
         self.reverse_kwargs = {
             'events:index': {},
             'events:event_details': {'event_id': self.event.id},
             'events:profile': {'username': self.user.username}
         }
+
+
+    def test_about_page_accessible_by_name(self):
+        for reverse_name, kwargs in self.reverse_kwargs.items():
+            with self.subTest(reverse_name=reverse_name, kwargs=kwargs):
+                response = self.guest_client.get(reverse(
+                    reverse_name,
+                    kwargs=kwargs
+                ))
+                self.assertEqual(response.status_code, HTTPStatus.OK)
+
 
     def test_pages_use_correct_templates(self):
         """
@@ -91,7 +102,6 @@ class EventsViewTests(TestCase):
         new_event = Event.objects.create(
             organizer=self.user,
             title='New event title',
-            description='New event description',
             sign_up_url='https://google.com',
             photo='https://picsum.photos/200/300',
         )
