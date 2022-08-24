@@ -30,8 +30,13 @@
           <form 
             class="p-4"
             method="post"
-            action="{% url 'users:signup' user_id %}"
-            >
+            action="
+            {% if user_id %}            
+              {% url 'users:tg-signup' user_id %}
+            {% else %}
+              {% url 'users:signup' %}
+            {% endif %}
+            ">
               {% csrf_token %}
               {% for field in form %}
                 <div class="form-group mb-4">
@@ -68,7 +73,16 @@
     
       <span class="text-muted">
         <small>
-          Already have an account? <a href="{% url 'users:login' user_id %}">Login</a>
+          Already have an account? 
+          <a href="
+          {% if user_id %}
+            {% url 'users:tg-login' user_id %}
+          {% else %}
+            {% url 'users:login' %}
+          {% endif %}
+          ">
+            login
+          </a>
         </small>
       </span>
     </div>

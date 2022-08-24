@@ -42,25 +42,22 @@ class EventsFormsTest(TestCase):
         form_data = {
             'event-id': self.event.id
         }
-        # FIXME Doesn't work as redirects to login with no argument
-        guest_response = self.guest_client.post(
-            reverse('events:like_event'),
-            form_data,
-            follow=True
-        )
+        old_num_likes = self.event.num_likes
         auth_response = self.auth_client.post(
             reverse('events:like_event'),
-            form_data,
-            follow=True
+            form_data
         )
         
-        # Guest user is redirected to login page.
-        self.assertRedirects(guest_response, reverse('users:login', kwargs={
-            'user_id': self.tg_user_id
-        }))
-        # Authorized user is redirected to events page.
-        # New number of likes is equal to the old number of likes + 1.
-
+        self.assertEqual(self.event.num_likes, old_num_likes + 1)
 
     def test_event_bookmark_is_valid(self):
-        pass
+        form_data = {
+            'event-id': self.event.id
+        }
+        old_num_bookmarks = self.event.num_bookmarks
+        auth_response = self.auth_client.post(
+            reverse('events:bookmark_event'),
+            form_data
+        )
+        
+        self.assertEqual(self.event.num_bookmarks, old_num_bookmarks + 1)

@@ -27,8 +27,7 @@ class Keyboard:
 		keyboard = self.keyboard_class(**options)
 		for row in self.buttons:
 			keyboard_row = [
-				button.create(self.button_class, sub_values)
-				for button in row
+				button.create(self.button_class, sub_values) for button in row
 			]
 			keyboard.row(*keyboard_row)
 		return keyboard
@@ -53,7 +52,9 @@ class Button:
 		"""
 		button_params = {
 			'text': format_text(self.text, self.button_type),
-			self.button_type: self.extra_type(format_text(self.extra, sub_values))
+			self.button_type: self.extra_type(
+				format_text(self.extra, sub_values)
+			)
 		}
 		return button_class(**button_params)
 

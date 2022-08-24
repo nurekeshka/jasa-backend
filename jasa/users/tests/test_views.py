@@ -26,9 +26,12 @@ class UsersViewsTest(TestCase):
 
     def setUp(self):
         self.reverse_kwargs = {
-            'users:signup': {'user_id': self.tg_user_id},
-            'users:login': {'user_id': self.tg_user_id},
-            'users:logout': {'user_id': self.tg_user_id},
+            'users:signup': {},
+            'users:login': {},
+            'users:logout': {},
+            'users:tg-signup': {'user_id': self.tg_user_id},
+            'users:tg-login': {'user_id': self.tg_user_id},
+            'users:tg-logout': {'user_id': self.tg_user_id},
         }
     
     def test_about_page_accessible_by_name(self):
@@ -49,6 +52,9 @@ class UsersViewsTest(TestCase):
             'users:signup': 'users/signup.html',
             'users:login': 'users/login.html',
             'users:logout': 'users/logout.html',
+            'users:tg-signup': 'users/signup.html',
+            'users:tg-login': 'users/login.html',
+            'users:tg-logout': 'users/logout.html',
         }
         for reverse_name, kwargs in self.reverse_kwargs.items():
             with self.subTest(reverse_name=reverse_name, kwargs=kwargs):

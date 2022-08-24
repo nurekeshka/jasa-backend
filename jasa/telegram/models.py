@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.models import AnonymousUser
 
 User = get_user_model()
 
@@ -17,7 +17,7 @@ class TelegramUser(models.Model):
         related_name='user',
         verbose_name='User account',
         blank=True,
-        null=True,
+        null=True
     )
     id = models.IntegerField(
         'User id',
@@ -47,7 +47,7 @@ class TelegramUser(models.Model):
 
     class Meta:
         verbose_name = 'Telegram user'
-        verbose_name_plural= 'Telegram users'
+        verbose_name_plural = 'Telegram users'
 
     def __str__(self):
         return str(self.id)

@@ -84,7 +84,16 @@
     
       <span class="text-muted">
         <small>
-          Don't have an account? <a href="{% url 'users:signup' user_id %}">Register</a>
+          Don't have an account? 
+          <a href="
+          {% if user_id %}
+            {% url 'users:tg-signup' user_id %}
+          {% else %}
+            {% url 'users:signup' %}
+          {% endif %}
+          ">
+            Register
+          </a>
         </small>
       </span>
     </div>

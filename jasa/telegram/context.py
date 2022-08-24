@@ -24,24 +24,24 @@ context = {
                     Button(
                         button_type='web_app',
                         text='🌐 Explore',
-                        extra=DOMAIN+'/events/'
+                        extra=DOMAIN + '/events/'
                     ),
                     Button(
                         button_type='web_app',
                         text='🔎 Search',
-                        extra=DOMAIN+'/signup/'
+                        extra=DOMAIN + '/signup/'
                     ),
                     Button(
                         button_type='web_app',
                         text='📅 Calendar',
-                        extra=DOMAIN+'/calendar/'
+                        extra=DOMAIN + '/calendar/'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
                         text='👤 Profile',
-                        extra=DOMAIN+'/profile/'
+                        extra=DOMAIN + '/profile/{username}'
                     ),
                 ]
             ]
@@ -64,7 +64,7 @@ context = {
             '*App commands\n*'
             '/start - Start the app.\n'
             '/explore - Explore events.\n'
-            '/search <tags> - Search for events by tags.\n'
+            #'/search <tags> - Search for events by tags.\n'
             '/profile - View your profile.\n'
         )
     },
@@ -79,14 +79,14 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Sign up',
-                        extra=DOMAIN+'/auth/signup/{id}/'
+                        extra=DOMAIN + '/auth/signup/{id}'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
                         text='Already have an account? Log in here',
-                        extra=DOMAIN+'/auth/login/{id}'
+                        extra=DOMAIN + '/auth/login/{id}'
                     )
                 ]
             ]
@@ -103,14 +103,14 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Log in',
-                        extra=DOMAIN+'/auth/login/{id}'
+                        extra=DOMAIN + '/auth/login/{id}'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
                         text='Don\'t have an account? Sign up here',
-                        extra=DOMAIN+'/auth/signup/{id}/'
+                        extra=DOMAIN + '/auth/signup/{id}'
                     )
                 ]
             ]
@@ -128,7 +128,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='Log out',
-                        extra=DOMAIN+'/auth/logout/{id}'
+                        extra=DOMAIN + '/auth/logout/{id}/'
                     )
                 ]
             ]
@@ -138,6 +138,44 @@ context = {
         'text': (
             'This bot was created by @H_reugo\n'
             'Github - https://github.com/Hereugo\n'
+        )
+    },
+    'explore': {
+        'text': (
+            'To see all recent events please press the button below.'
+        ),
+        'keyboard': Keyboard(
+            keyboard_type='inline_keyboard',
+            buttons=[
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Explore',
+                        extra=DOMAIN + '/events'
+                    )
+                ]
+            ]
+        )
+    },
+    'profile': {
+        'text': (
+            'To open your profile press the button below.'
+        ),
+        'warning_text': (
+            'You are currently not in an account, login before'
+            ' accessing your profile.'
+        ),
+        'keyboard': Keyboard(
+            keyboard_type='inline_keyboard',
+            buttons=[
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Profile',
+                        extra=DOMAIN + '/profile/{username}'
+                    )
+                ]
+            ]
         )
     }
 }

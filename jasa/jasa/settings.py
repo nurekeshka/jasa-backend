@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'fontawesomefree',
-    'sorl.thumbnail',
     'ckeditor',
 
     'telegram.apps.TelegramConfig',

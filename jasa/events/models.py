@@ -30,7 +30,6 @@ class Event(models.Model):
     sign_up_url = models.URLField(
         'Sign up URL'
     )
-    # TODO: Change the photo field to be a ImageField instead.
     photo = models.ImageField(
         'Event photo',
         upload_to='events/',

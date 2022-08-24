@@ -4,14 +4,9 @@
 - [ ] Create Tag model
 - [ ] Design Logout page with bootstrap
 - [ ] Display the *Relationships* design on github using mermaid js
-- [x] Write tests for authintication methods
-- [x] Change url field for image to image field in events models
-- [x] Add TKEditor in admin panel
 
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
-- [x] Signup doesn't work
-- [x] Intro message is not sent
 - [ ] Guest users can still like/bookmark events
 - [ ] Password input values are shown
 

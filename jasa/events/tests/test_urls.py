@@ -27,7 +27,6 @@ class EventsURLTests(TestCase):
             organizer=self.organizer,
             title='Event title',
             sign_up_url='https://google.com',
-            photo='https://picsum.photos/200/300',
         )
         self.urls_template_names = {
             '/events/': 'events/index.html',

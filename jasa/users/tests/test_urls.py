@@ -23,6 +23,9 @@ class UsersViewsTest(TestCase):
     
     def setUp(self) -> None:
         self.urls_template_names = {
+            f'/auth/signup/': 'users/signup.html',
+            f'/auth/login/': 'users/login.html',
+            f'/auth/logout/': 'users/logout.html',
             f'/auth/signup/{self.tg_user_id}/': 'users/signup.html',
             f'/auth/login/{self.tg_user_id}/': 'users/login.html',
             f'/auth/logout/{self.tg_user_id}/': 'users/logout.html',

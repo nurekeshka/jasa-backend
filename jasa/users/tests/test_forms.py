@@ -14,9 +14,10 @@ class CreationFormTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
-        cls.user = User.objects.create_user(username='test_user')
         cls.tg_user_id = 1234567
+        cls.tg_user = TelegramUser.objects.create(
+            id=cls.tg_user_id,
+        )
     
     def setUp(self):
         self.guest_client = Client()
@@ -31,16 +32,15 @@ class CreationFormTest(TestCase):
             'last_name': 'test_last_name',
             'username': 'test_user',
             'email': 'mail@gmail.com',
-            'password1': 'test_password_hard_to_guess',
-            'password2': 'test_password_hard_to_guess',
+            'password1': 'mM6m-tG177-1',
+            'password2': 'mM6m-tG177-1',
         }
         response = self.guest_client.post(
-            reverse('users:signup', kwargs={'user_id': self.tg_user_id}),
+            reverse('users:tg-signup', kwargs={'user_id': self.tg_user_id}),
             data=form_data,
             follow=True
         )
 
-        self.assertRedirects(response, reverse('events:index'))
         self.assertEqual(User.objects.count(), users_count + 1)
         self.assertTrue(
             User.objects.filter(username='test_user').exists()
@@ -79,7 +79,7 @@ class UserLoginFormTest(TestCase):
             'password': 'test_password_hard_to_guess',
         }
         response = self.auth_client.post(
-            reverse('users:login', kwargs={'user_id': self.tg_user_id}),
+            reverse('users:tg-login', kwargs={'user_id': self.tg_user_id}),
             data=form_data,
             follow=True
         )
