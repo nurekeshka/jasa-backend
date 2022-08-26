@@ -6,9 +6,9 @@
 {% endblock %}
 
 
-{% block title %}Events{% endblock title %}
+{% block title %}Мероприятие{% endblock title %}
 
-{% block header_title %}Recent events{% endblock %}
+{% block header_title %}Текущее мероприятие{% endblock %}
 
 {% block content %}
   <div class="event-list">
@@ -17,10 +17,12 @@
     {% endfor %}
     {% if page_obj.has_next %}
       <p class="pagination">
-        <a class="next-page" href="?page={{ page_obj.next_page_number }}">More...</a>
+        <a class="next-page" href="?page={{ page_obj.next_page_number }}">Больше...</a>
       </p>
     {% else %}
-      <p class="text-center tg-hint-color text-muted"> No more events </p>
+      <p class="text-center tg-hint-color text-muted">
+        Больше нет никаких мероприятие
+      </p>
     {% endif %}
   </div>
 {% endblock content %}
@@ -34,8 +36,11 @@
   <script src="{% static 'js/post.js' %}"></script>
   <script src="{% static 'js/events/index.js' %}"></script>
 
-  <!-- jScroll plug-in CDN -->
-  <!-- https://github.com/pythonsansar/infinite-scrolling-django/blob/master/books/templates/books/book-list.html -->
+
+  {% comment %} 
+    jScroll plug-in CDN
+    https://github.com/pythonsansar/infinite-scrolling-django/blob/master/books/templates/books/book-list.html
+  {% endcomment %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
   <script>
     jQuery(function ($) {

@@ -4,7 +4,7 @@
 - [ ] Create Tag model
 - [ ] Design Logout page with bootstrap
 - [ ] Display the *Relationships* design on github using mermaid js
-
+- [ ] Translate text to russian
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
 - [ ] Guest users can still like/bookmark events

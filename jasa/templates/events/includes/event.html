@@ -1,20 +1,23 @@
 <article id="event-{{ event.id }}" class="card border-0 rounded tg-bg-color mb-5">
   <div class="row">
-    {% comment %} 
-    TODO: Display the events organizer.
-
-    Show the organizers profile picture and name. 
-    {% endcomment %}
-
-
-    {% comment %} 
-    TODO:
-    - [ ] Multiple images for the event
-    - [x] Have images be stored in the database
-
-    https://getbootstrap.com/docs/4.3/components/carousel/
-    {% endcomment %}
     <div class="col-md-6">
+      {% comment %} 
+      TODO: Display the events organizer.
+
+      Show the organizers profile picture and name. 
+      {% endcomment %}
+      <div class="profile_header p-2">
+        <a href="{% url 'events:profile' event.organizer.username %}">
+          {{event.organizer.username}}
+        </a>
+      </div>
+  
+      {% comment %} 
+      TODO:
+      - [ ] Multiple images for the event
+
+      https://getbootstrap.com/docs/4.3/components/carousel/
+      {% endcomment %}
       <img 
         class="w-100"
         src="
@@ -24,10 +27,10 @@
         "
         alt="{{ event.title }}"
       >
-      <div class="header">
+      <div class="header px-2">
         {% csrf_token %}
         <ul class="d-flex p-0 m-0 list-unstyled">
-          <li class="px-2">
+          <li class="pr-2">
             <button id="like-button" class="btn p-0" event-id="{{ event.id }}">
               {% if user not in event.liked.all %}
                   <i class="fa-regular fa-heart fa-lg tg-text-color"></i>
@@ -44,7 +47,7 @@
               <i class="fa-regular fa-paper-plane fa-lg"></i>
             </a>
           </li>
-          <li class="px-2 ml-auto">
+          <li class="pl-2 ml-auto">
             <button id="bookmark-button" class="btn p-0" event-id="{{ event.id }}">
               {% if user not in event.bookmarked.all %}
                   <i class="fa-regular fa-bookmark fa-lg tg-text-color"></i>
@@ -76,7 +79,7 @@
               class="tg-link-color" 
               href="{% url 'events:event_details' event.id %}"
             >
-              Read more
+              Подробнее
             </a>
         {% endif %}
         </p>
@@ -107,7 +110,9 @@
           after which they will be redirected to the event details page.
         {% endcomment %}
         <a href="{{ event.sign_up_url }}" target="_blank" class="ml-auto">
-          <button class="btn w-100 outline-btn">Register now</button>
+          <button class="btn w-100 outline-btn">
+            Зарегистрируйтесь сейчас
+          </button>
         </a>
       </div>
     </div>

@@ -1,4 +1,3 @@
-from typing import List
 from http import HTTPStatus
 
 from django.test import TestCase, Client

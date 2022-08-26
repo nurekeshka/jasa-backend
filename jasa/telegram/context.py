@@ -4,18 +4,17 @@ from .utils import Keyboard, Button
 context = {
     'intro': {
         'text': (
-            'Welcome to the Jasa bot!\n'
-            'This bot helps you find ongoing events in your area.\n'
-            'To save events to your calendar, simply type /signup '
-            'and follow the instructions, or click the button below.\n'
-            'If you want to know more about the bot, type /help.\n'
-            'To get started, type /start.'
+            'Добро пожаловать в Jasa bot!\n'
+            'Я помогу вам найти текущее событие и мероприятие в вашем регионе.\n'
+            'Для того, чтобы использовать этого бота, вам необходимо' 'зарегистрироваться с помощью команды /signup'
+            'Если вы хотите узнать больше о bot-е, введите /help.\n'
+            'Чтобы начать, введите /start'
         )
     },
     'start': {
         'text': (
-            'Welcome back {user}!\n'
-            'If you are stuck, type /help.'
+            'Добро пожаловать {user}!\n'
+            'если у вас есть вопросы, напишите /help.'
         ),
         'keyboard': Keyboard(
             keyboard_type='reply_keyboard',
@@ -23,24 +22,24 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='🌐 Explore',
+                        text='🌐 Текущие события',
                         extra=DOMAIN + '/events/'
                     ),
                     Button(
                         button_type='web_app',
-                        text='🔎 Search',
+                        text='🔎 Поиск',
                         extra=DOMAIN + '/signup/'
                     ),
                     Button(
                         button_type='web_app',
-                        text='📅 Calendar',
+                        text='📅 Календарь',
                         extra=DOMAIN + '/calendar/'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
-                        text='👤 Profile',
+                        text='👤 Профиль',
                         extra=DOMAIN + '/profile/{username}'
                     ),
                 ]
@@ -49,28 +48,28 @@ context = {
     },
     'help': {
         'text': (
-            'Here are some commands you can use:\n\n'
+            'Вот несколько команд, которые вы можете использовать:\n\n'
 
-            '*Help commands*\n'
-            '/intro - Send an introduction message '
-            'that guides users on how to use the app.\n'
-            '/help - Send a message listing all available commands.\n\n'
+            '*Команды справки*\n'
+            '/intro - Отправить вводное сообщение '
+            'это руководство для пользователей о том, как использовать приложение.\n'
+            '/help - Отправить сообщение со списком всех доступных команд.\n\n'
 
-            '*Authentication commands*\n'
-            '/login - Log in to your account.\n'
-            '/logout - Log out of your account.\n'
-            '/signup - Sign up for a new account.\n\n'
+            '*Команды аутентификации*\n'
+            '/login - войдите в свою учетную запись.\n'
+            '/logout из системы - выйдите из своей учетной записи.\n'
+            '/signup - Подпишитесь на новую учетную запись.\n\n'
 
-            '*App commands\n*'
-            '/start - Start the app.\n'
-            '/explore - Explore events.\n'
-            #'/search <tags> - Search for events by tags.\n'
-            '/profile - View your profile.\n'
+            '*Команды бота\n*'
+            '/start - Запустить приложение.\n'
+            '/explore - Исследовать события.\n'
+            #'/search <теги> - Поиск событий по тегам.\n'
+            '/profile - Просмотр вашего профиля.\n'
         )
     },
     'signup': {
         'text': (
-            'To sign up for an account, please click on the button bellow.\n'
+            'Чтобы зарегистрировать аккаунт, пожалуйста, нажмите на кнопку ниже.\n'
         ),
         'keyboard': Keyboard(
             keyboard_type='inline_keyboard',
@@ -78,14 +77,14 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Sign up',
+                        text='👤 Зарегистрироваться',
                         extra=DOMAIN + '/auth/signup/{id}'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
-                        text='Already have an account? Log in here',
+                        text='У вас уже есть аккаунт? Войдите в систему здесь',
                         extra=DOMAIN + '/auth/login/{id}'
                     )
                 ]
@@ -94,7 +93,7 @@ context = {
     },
     'login': {
         'text': (
-            'To log in to your account, please click on the button bellow.\n'
+            'Чтобы войти в свою аккаунт, пожалуйста, нажмите на кнопку ниже.\n'
         ),
         'keyboard': Keyboard(
             keyboard_type='inline_keyboard',
@@ -102,14 +101,14 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Log in',
+                        text='↪️ Войти',
                         extra=DOMAIN + '/auth/login/{id}'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
-                        text='Don\'t have an account? Sign up here',
+                        text='У вас нет учетной записи? Зарегистрируйтесь здесь',
                         extra=DOMAIN + '/auth/signup/{id}'
                     )
                 ]
@@ -118,8 +117,8 @@ context = {
     },
     'logout': {
         'text': (
-            'Are you sure you want to log out?\n'
-            'To confirm, please click on the button bellow\n'
+            'Вы уверены, что хотите выйти из системы?'
+            'Для подтверждения, пожалуйста, нажмите на кнопку ниже\n'
         ),
         'keyboard': Keyboard(
             keyboard_type='inline_keyboard',
@@ -127,7 +126,7 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Log out',
+                        text='↩️ Выйти',
                         extra=DOMAIN + '/auth/logout/{id}/'
                     )
                 ]
@@ -136,13 +135,14 @@ context = {
     },
     'about': {
         'text': (
-            'This bot was created by @H_reugo\n'
+            'Этот бот был создан @H_reugo\n'
             'Github - https://github.com/Hereugo\n'
+            'Linkedin - https://www.linkedin.com/in/amir-nurmukhambetov-190a6b214/\n'
         )
     },
     'explore': {
         'text': (
-            'To see all recent events please press the button below.'
+            'Чтобы просмотреть все последние события, пожалуйста, нажмите кнопку ниже.'
         ),
         'keyboard': Keyboard(
             keyboard_type='inline_keyboard',
@@ -150,7 +150,7 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Explore',
+                        text='🌐 Текущие события',
                         extra=DOMAIN + '/events'
                     )
                 ]
@@ -162,8 +162,7 @@ context = {
             'To open your profile press the button below.'
         ),
         'warning_text': (
-            'You are currently not in an account, login before'
-            ' accessing your profile.'
+            'В настоящее время вы не вошли в аккаунт, войдите в систему до прежде чем получить доступ к вашему профилю'
         ),
         'keyboard': Keyboard(
             keyboard_type='inline_keyboard',
@@ -171,7 +170,7 @@ context = {
                 [
                     Button(
                         button_type='web_app',
-                        text='Profile',
+                        text='👤 Профиль',
                         extra=DOMAIN + '/profile/{username}'
                     )
                 ]
