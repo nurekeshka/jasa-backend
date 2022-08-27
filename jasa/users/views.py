@@ -29,7 +29,7 @@ class SignUp(CreateView):
 
 
 class Login(LoginView):
-    template_name='users/login.html'
+    template_name = 'users/login.html'
     success_url = reverse_lazy('events:index')
 
     def form_valid(self, form):

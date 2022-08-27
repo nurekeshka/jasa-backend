@@ -4,11 +4,15 @@
 - [ ] Create Tag model
 - [ ] Design Logout page with bootstrap
 - [ ] Display the *Relationships* design on github using mermaid js
-- [ ] Translate text to russian
+# 🚀 Features
+- [ ] Image double press to like
+- [ ] Multiple languages
+- [ ] Multiple images per event
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
-- [ ] Guest users can still like/bookmark events
-- [ ] Password input values are shown
+- [x] Guest users can still like/bookmark events
+- [x] Password input values are shown
+
 
 # 🔗 Useful links
 - https://pythonsansar.com/implement-infinite-scrolling-django/

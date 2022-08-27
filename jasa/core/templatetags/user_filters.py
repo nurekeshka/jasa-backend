@@ -8,7 +8,8 @@ def addclass(field, css):
     return field.as_widget(attrs={'class': css})
 
 
-@register.filter
-def addplaceholder(field, text):
-    print(field, text)
-    return field.as_widget(attrs={'placeholder': text})
+@register.filter(name="placeholder")
+def placeholder(value, token):
+    """ Add placeholder attribute, esp. for form inputs and textareas """
+    value.field.widget.attrs["placeholder"] = token
+    return value

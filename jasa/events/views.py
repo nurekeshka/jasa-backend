@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import get_user_model
 
+from core.decorators.ajax_decorator import ajax_login_required
 from .constants import NUM_LOAD_EVENTS
 from .models import Event
 
@@ -68,7 +69,7 @@ def profile(request, username: str = ''):
     return render(request, template_name, context)
 
 
-@login_required
+@ajax_login_required
 def like_event(request):
     user = request.user
 
@@ -82,14 +83,18 @@ def like_event(request):
             event.liked.add(user)
 
         return JsonResponse({
+            'status': 'OK',
             'count': event.num_likes,
             'event-id': event_id,
         })
 
-    return JsonResponse({'error': 'Error'})
+    return JsonResponse({
+        'status': 'ERROR',
+        'redirect': '???'
+    })
 
 
-@login_required
+@ajax_login_required
 def bookmark_event(request):
     user = request.user
 
@@ -103,8 +108,12 @@ def bookmark_event(request):
             event.bookmarked.add(user)
 
         return JsonResponse({
+            'status': 'OK',
             'count': event.num_bookmarks,
             'event-id': event_id,
         })
-    
-    return JsonResponse({'error': 'Error'})
+
+    return JsonResponse({
+        'status': 'ERROR',
+        'redirect': '???'
+    })

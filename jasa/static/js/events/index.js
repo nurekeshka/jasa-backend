@@ -1,8 +1,9 @@
 // For the like button.
 setPostHandler(
-    '#like-button', 
+    '#like-button',
+    'click',
     like_url, 
-    ['event-id'],
+    ['data-event-id'],
     (data) => {
         let eventId = data['event-id'];
         let article = $(`#event-${eventId}`);
@@ -36,8 +37,9 @@ setPostHandler(
 // For the bookmark button.
 setPostHandler(
     '#bookmark-button',
+    'click',
     bookmark_url,
-    ['event-id'],
+    ['data-event-id'],
     (data) => {
         let eventId = data['event-id'];
         let article = $(`#event-${eventId}`);

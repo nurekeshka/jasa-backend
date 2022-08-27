@@ -35,23 +35,9 @@
             {% endif %}
             >
               {% csrf_token %}
-
               {% for field in form %}
                 <div class="form-group mb-4">
-
-                  <input 
-                    type="{{ field.type }}"
-                    class="form-control {{ field.css_class }}"
-                    id="{{ field.id }}"
-                    name="{{ field.name }}"
-                    placeholder="{{ field.label }}"
-                    {% if field.value %}
-                      value="{{ field.value }}"
-                    {% endif %}
-                    {% if field.required %}
-                      required
-                    {% endif %}
-                  />
+                  {{ field|placeholder:field.label|addclass:'form-control'}}
     
                   {% if field.help_text %}
                     <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
