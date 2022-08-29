@@ -49,7 +49,7 @@ def event_details(request, event_id: int):
     return render(request, template_name, context)
 
 
-def profile(request, username: str = ''):
+def profile(request, username: str):
     """Render profile page."""
     template_name = 'events/profile.html',
 

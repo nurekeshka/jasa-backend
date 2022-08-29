@@ -4,8 +4,6 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
-from telegram.models import TelegramUser
-
 
 User = get_user_model()
 
@@ -14,10 +12,6 @@ class CreationFormTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.tg_user_id = 1234567
-        cls.tg_user = TelegramUser.objects.create(
-            id=cls.tg_user_id,
-        )
     
     def setUp(self):
         self.guest_client = Client()
@@ -36,7 +30,7 @@ class CreationFormTest(TestCase):
             'password2': 'mM6m-tG177-1',
         }
         response = self.guest_client.post(
-            reverse('users:tg-signup', kwargs={'user_id': self.tg_user_id}),
+            reverse('users:signup'),
             data=form_data,
             follow=True
         )
@@ -44,9 +38,6 @@ class CreationFormTest(TestCase):
         self.assertEqual(User.objects.count(), users_count + 1)
         self.assertTrue(
             User.objects.filter(username='test_user').exists()
-        )
-        self.assertTrue(
-            TelegramUser.objects.filter(id=self.tg_user_id).exists()
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
@@ -61,11 +52,6 @@ class UserLoginFormTest(TestCase):
             username='test_user',
             password='test_password_hard_to_guess',
         )
-        cls.tg_user_id = 1234567
-        cls.tg_user = TelegramUser.objects.create(
-            user=cls.user,
-            id=cls.tg_user_id,
-        )
     
     def setUp(self):
         self.auth_client = Client()
@@ -79,7 +65,7 @@ class UserLoginFormTest(TestCase):
             'password': 'test_password_hard_to_guess',
         }
         response = self.auth_client.post(
-            reverse('users:tg-login', kwargs={'user_id': self.tg_user_id}),
+            reverse('users:login'),
             data=form_data,
             follow=True
         )

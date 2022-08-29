@@ -35,6 +35,7 @@
             {% endif %}
             >
               {% csrf_token %}
+
               {% for field in form %}
                 <div class="form-group mb-4">
                   {{ field|placeholder:field.label|addclass:'form-control'}}
@@ -71,15 +72,7 @@
       <span class="text-muted">
         <small>
           Don't have an account? 
-          <a href="
-          {% if user_id %}
-            {% url 'users:tg-signup' user_id %}
-          {% else %}
-            {% url 'users:signup' %}
-          {% endif %}
-          ">
-            Register
-          </a>
+          <a href="{% url 'users:signup' %}">Register</a>
         </small>
       </span>
     </div>

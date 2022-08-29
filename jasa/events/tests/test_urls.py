@@ -29,7 +29,7 @@ class EventsURLTests(TestCase):
             sign_up_url='https://google.com',
         )
         self.urls_template_names = {
-            '/events/': 'events/index.html',
+            f'/events/': 'events/index.html',
             f'/events/{self.event.id}/': 'events/event_details.html',
             f'/profile/{self.user.username}/': 'events/profile.html',
         }

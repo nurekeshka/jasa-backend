@@ -26,9 +26,9 @@ class Keyboard:
 		"""
 		keyboard = self.keyboard_class(**options)
 		for row in self.buttons:
-			keyboard_row = [
+			keyboard_row = list(filter(None, [
 				button.create(self.button_class, sub_values) for button in row
-			]
+			]))
 			keyboard.row(*keyboard_row)
 		return keyboard
 
@@ -50,16 +50,20 @@ class Button:
 		Creates a button from a given format. 
 		Applies given values to placeholders.
 		"""
-		button_params = {
-			'text': format_text(self.text, self.button_type),
-			self.button_type: self.extra_type(
-				format_text(self.extra, sub_values)
-			)
-		}
-		return button_class(**button_params)
+		try:
+			button_params = {
+				'text': format_text(self.text, self.button_type),
+				self.button_type: self.extra_type(
+					format_text(self.extra, sub_values)
+				)
+			}
+		except KeyError:
+			return None
+		finally:
+			return button_class(**button_params)
 
 
-def get_format_keys(s: str):
+def get_format_keys(s: str) -> list:
 	"""
 	Finds all format keys in a string.
 	Example:
@@ -83,5 +87,14 @@ def format_text(text, placeholder_values):
 	```
 	"""
 	keys = get_format_keys(text)
-	ddict = dict(zip(keys, [placeholder_values[key] for key in keys]))
-	return text.format(**ddict)
+	for key in keys:
+		if not key in placeholder_values:
+			raise KeyError(f'Key {key} not found in placeholder_values')
+	
+	_dict = dict(
+		zip(
+			keys,
+			[placeholder_values[key] for key in keys]
+		)
+	)
+	return text.format(**_dict)

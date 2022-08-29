@@ -3,16 +3,16 @@
 - [ ] Profile page
 - [ ] Create Tag model
 - [ ] Design Logout page with bootstrap
-- [ ] Display the *Relationships* design on github using mermaid js
+# 👾 FIXME
+- Nothing
 # 🚀 Features
+- [ ] Organizer profile image on event post
 - [ ] Image double press to like
 - [ ] Multiple languages
 - [ ] Multiple images per event
+- [ ] Remember password on login
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
-- [x] Guest users can still like/bookmark events
-- [x] Password input values are shown
-
 
 # 🔗 Useful links
 - https://pythonsansar.com/implement-infinite-scrolling-django/

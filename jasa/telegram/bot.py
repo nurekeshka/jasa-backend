@@ -3,17 +3,21 @@ from dataclasses import dataclass
 from telebot import TeleBot
 from telebot.handler_backends import BaseMiddleware, SkipHandler
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import get_user_model
 
+from core.utils import get_object_or_none
 from jasa.settings import BOT_TOKEN, DEBUG
 from .context import context
 from .models import TelegramUser
 
 
+User = get_user_model()
 bot = TeleBot(BOT_TOKEN, use_class_middlewares=True)
 if DEBUG:
     import logging
     from telebot import logger
     logger.setLevel(logging.DEBUG)
+
 
 @dataclass
 class Middleware(BaseMiddleware):
@@ -43,10 +47,12 @@ class Middleware(BaseMiddleware):
 @bot.message_handler(commands=['intro'])
 def intro(message, data):
     """Send an introduction message that guides users on how to use the app."""
+    keyboard = context['intro']['keyboard'].create()
     bot.send_message(
         data['tg-user'].id,
         context['intro']['text'],
-        parse_mode='markdown'
+        reply_markup=keyboard,
+        parse_mode='markdown',
     )
 
 
@@ -80,9 +86,7 @@ def help(message, data):
 @bot.message_handler(commands=['signup'])
 def signup(message, data):
     """Send a sign up message."""
-    keyboard = context['signup']['keyboard'].create(
-        {'id': data['tg-user'].id}
-    )
+    keyboard = context['signup']['keyboard'].create()
     bot.send_message(
         data['tg-user'].id,
         context['signup']['text'],
@@ -93,9 +97,7 @@ def signup(message, data):
 @bot.message_handler(commands=['login'])
 def login(message, data):
     """Log in to your account."""
-    keyboard = context['login']['keyboard'].create(
-        {'id': data['tg-user'].id}
-    )
+    keyboard = context['login']['keyboard'].create()
     bot.send_message(
         data['tg-user'].id,
         context['login']['text'],
@@ -106,9 +108,7 @@ def login(message, data):
 @bot.message_handler(commands=['logout'])
 def logout(message, data):
     """Log out of your account."""
-    keyboard = context['logout']['keyboard'].create(
-        {'id': data['tg-user'].id}
-    )
+    keyboard = context['logout']['keyboard'].create()
     bot.send_message(
         data['tg-user'].id,
         context['logout']['text'],
@@ -143,23 +143,19 @@ def profile(message, data):
     Send an profile message that redirects users to their profile. If
     they are logged in.
     """
+    # TODO - implement this
+    # If there exists an account that is linked to the current tg-user, then
+    # show message. If not, show message to connect an account.
     user = data['tg-user'].user or AnonymousUser
-    if not user:
-        # If user is not logged into an account then redirect to login message.
+    if user.is_authenticated:
+        keyboard = context['profile']['keyboard'].create(
+            {'username': user.username}
+        )
         bot.send_message(
             data['tg-user'].id,
-            context['profile']['warning_text']
+            context['profile']['text'],
+            reply_markup=keyboard
         )
-        login(message, data)
-        return
 
-    keyboard = context['profile']['keyboard'].create(
-        {'username': user.username}
-    )
-    bot.send_message(
-        data['tg-user'].id,
-        context['profile']['text'],
-        reply_markup=keyboard
-    )
 
 bot.setup_middleware(Middleware())

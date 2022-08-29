@@ -22,12 +22,6 @@ class EventsFormsTest(TestCase):
         cls.organizer = User.objects.create(username='Organizer')
 
         cls.auth_client.force_login(cls.user)
-        
-        cls.tg_user_id = 1234567
-        cls.tg_user = TelegramUser.objects.create(
-            user=cls.user,
-            id=cls.tg_user_id,
-        )
 
     def setUp(self):
         """Creates an event for the tests."""
@@ -36,7 +30,6 @@ class EventsFormsTest(TestCase):
             title='Event title',
             sign_up_url='https://google.com',
         )
-
 
     def test_event_like_is_valid(self):
         form_data = {

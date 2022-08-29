@@ -9,6 +9,25 @@ context = {
             'Для того, чтобы использовать этого бота, вам необходимо' 'зарегистрироваться с помощью команды /signup'
             'Если вы хотите узнать больше о bot-е, введите /help.\n'
             'Чтобы начать, введите /start'
+        ),
+        'keyboard': Keyboard(
+            keyboard_type='inline_keyboard',
+            buttons=[
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Войти',
+                        extra=DOMAIN + '/login/'
+                    ),
+                ],
+                [
+                    Button(
+                        button_type='web_app',
+                        text='Зарегистрироваться',
+                        extra=DOMAIN + '/signup/'
+                    ),
+                ]
+            ]
         )
     },
     'start': {
@@ -28,7 +47,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='🔎 Поиск',
-                        extra=DOMAIN + '/signup/'
+                        extra=DOMAIN + '/search/'
                     ),
                     Button(
                         button_type='web_app',
@@ -40,7 +59,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='👤 Профиль',
-                        extra=DOMAIN + '/profile/{username}'
+                        extra=DOMAIN + '/profile/{username}/'
                     ),
                 ]
             ]
@@ -78,14 +97,14 @@ context = {
                     Button(
                         button_type='web_app',
                         text='👤 Зарегистрироваться',
-                        extra=DOMAIN + '/auth/signup/{id}'
+                        extra=DOMAIN + '/auth/signup/'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
                         text='У вас уже есть аккаунт? Войдите в систему здесь',
-                        extra=DOMAIN + '/auth/login/{id}'
+                        extra=DOMAIN + '/auth/login/'
                     )
                 ]
             ]
@@ -102,14 +121,14 @@ context = {
                     Button(
                         button_type='web_app',
                         text='↪️ Войти',
-                        extra=DOMAIN + '/auth/login/{id}'
+                        extra=DOMAIN + '/auth/login/'
                     )
                 ],
                 [
                     Button(
                         button_type='web_app',
                         text='У вас нет учетной записи? Зарегистрируйтесь здесь',
-                        extra=DOMAIN + '/auth/signup/{id}'
+                        extra=DOMAIN + '/auth/signup/'
                     )
                 ]
             ]
@@ -127,7 +146,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='↩️ Выйти',
-                        extra=DOMAIN + '/auth/logout/{id}/'
+                        extra=DOMAIN + '/auth/logout/'
                     )
                 ]
             ]
@@ -171,7 +190,7 @@ context = {
                     Button(
                         button_type='web_app',
                         text='👤 Профиль',
-                        extra=DOMAIN + '/profile/{username}'
+                        extra=DOMAIN + '/profile/{username}/'
                     )
                 ]
             ]
