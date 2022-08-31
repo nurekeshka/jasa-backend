@@ -17,13 +17,7 @@ class UsersViewsTest(TestCase):
         super().setUpClass()
 
         cls.guest_client = Client()
-        cls.user = User.objects.create_user(username='test_user')
-        cls.tg_user_id = 1234567
-        cls.tg_user = TelegramUser.objects.create(
-            user=cls.user,
-            id=cls.tg_user_id,
-        )
-
+        
     def setUp(self):
         self.reverse_kwargs = {
             'users:signup': {},

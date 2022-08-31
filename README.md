@@ -1,18 +1,25 @@
 # 📝 TODO
-- [ ] Work on TODOs
 - [ ] Profile page
-- [ ] Create Tag model
 - [ ] Design Logout page with bootstrap
+- [ ] Figure out how to verify registration on event
+- [x] Implement 'Password Forget'
+- [ ] Implement 'Remember Password'
 # 👾 FIXME
 - Nothing
 # 🚀 Features
-- [ ] Organizer profile image on event post
-- [ ] Image double press to like
-- [ ] Multiple languages
-- [ ] Multiple images per event
-- [ ] Remember password on login
+- **Event post**
+  - [ ] Organizer profile image on event post
+  - [ ] Image double press to like
+  - [ ] Multiple images per event
+- **Auth**
+  - [ ] Remember password on login
+  - [ ] Link Telegram account to Jasa account
+- **General**
+  - [ ] Multiple languages
+  - [ ] Link google maps to location given in an event
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
+- [x] Fix test errors
 
 # 🔗 Useful links
 - https://pythonsansar.com/implement-infinite-scrolling-django/

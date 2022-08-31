@@ -8,5 +8,4 @@ class SignUp(CreateView):
     """This view is used to create a new user."""
 
     form_class = CreationForm
-    template_name = 'users/signup.html'
     success_url = reverse_lazy('events:index')
