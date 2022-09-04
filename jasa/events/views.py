@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 
 from core.decorators.ajax_decorator import ajax_login_required
 from .constants import NUM_LOAD_EVENTS
-from .models import Event
+from .models import Event, Tag
 
 
 User = get_user_model()
@@ -51,7 +51,7 @@ def event_details(request, event_id: int):
 
 def profile(request, username: str):
     """Render profile page."""
-    template_name = 'events/profile.html',
+    template_name = 'events/profile.html'
 
     username = username or request.user.username
     if not username:
@@ -69,51 +69,66 @@ def profile(request, username: str):
     return render(request, template_name, context)
 
 
+def search(request):
+    """Render search page."""
+    template_name = 'events/search.html'
+
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags,
+    }
+
+    return render(request, template_name, context)
+
+
 @ajax_login_required
 def like_event(request):
     user = request.user
 
-    if request.method == 'POST':
-        event_id = request.POST.get('event-id')
-        event = Event.objects.get(id=event_id)
-        
-        if user in event.liked.all():
-            event.liked.remove(user)
-        else:
-            event.liked.add(user)
+    try:
+        if request.method == 'POST':
+            event_id = request.POST.get('event-id')
+            event = Event.objects.get(id=event_id)
+            
+            if user in event.liked.all():
+                event.liked.remove(user)
+            else:
+                event.liked.add(user)
 
+            return JsonResponse({
+                'status': 'OK',
+                'count': event.num_likes,
+                'event-id': event_id,
+            })
+    except Exception as e:
+        print(e)
         return JsonResponse({
-            'status': 'OK',
-            'count': event.num_likes,
-            'event-id': event_id,
+            'status': 'ERROR',
         })
-
-    return JsonResponse({
-        'status': 'ERROR',
-        'redirect': '???'
-    })
 
 
 @ajax_login_required
 def bookmark_event(request):
     user = request.user
 
-    if request.method == 'POST':
-        event_id = request.POST.get('event-id')
-        event = Event.objects.get(id=event_id)
-        
-        if user in event.bookmarked.all():
-            event.bookmarked.remove(user)
-        else:
-            event.bookmarked.add(user)
+    try:
+        if request.method == 'POST':
+            event_id = request.POST.get('event-id')
+            event = Event.objects.get(id=event_id)
+            
+            if user in event.bookmarked.all():
+                event.bookmarked.remove(user)
+            else:
+                event.bookmarked.add(user)
 
+            return JsonResponse({
+                'status': 'OK',
+                'count': event.num_bookmarks,
+                'event-id': event_id,
+            })
+    except Exception as e:
+        print(e)
         return JsonResponse({
-            'status': 'OK',
-            'count': event.num_bookmarks,
-            'event-id': event_id,
+            'status': 'ERROR',
         })
-
-    return JsonResponse({
-        'status': 'ERROR',
-        'redirect': '???'
-    })

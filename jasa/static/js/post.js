@@ -24,7 +24,7 @@ function setPostHandler(selector, fire_event, url, attr_data, setUp, checkUp) {
                     case 'OK':
                         checkUp(data);
                         break;
-                    default:
+                    case 'REDIRECT':
                         window.location.href = data.redirect;
                         break;
                 }

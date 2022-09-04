@@ -158,4 +158,9 @@ def profile(message, data):
         )
 
 
+# TODO Implement this
+@bot.message_handler(commands=['search'])
+def search(message, data):
+    pass
+
 bot.setup_middleware(Middleware())

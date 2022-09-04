@@ -3,7 +3,7 @@ from django.db import models
 from ckeditor.widgets import CKEditorWidget
 
 
-from .models import Event, Like, Bookmark
+from .models import Event, Like, Bookmark, Tag
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -22,3 +22,4 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(Like)
 admin.site.register(Bookmark)
+admin.site.register(Tag)

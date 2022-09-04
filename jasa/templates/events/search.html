@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск{% endblock %}
+{% block header_title %}Поиск{% endblock %}
+
+{% block content %}
+  {% for tag in tags %}
+    <a href="{% url 'events:index' %}">{{ tag }}</a>
+    <hr>
+  {% endfor %}
+{% endblock %}

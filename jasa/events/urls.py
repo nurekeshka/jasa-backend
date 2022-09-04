@@ -34,5 +34,10 @@ urlpatterns = [
         'profile/<str:username>/',
         views.profile,
         name='profile'
+    ),
+    path(
+        'search/',
+        views.search,
+        name='search'
     )
 ]

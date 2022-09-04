@@ -3,7 +3,7 @@ setPostHandler(
     '#like-button',
     'click',
     like_url, 
-    ['data-event-id'],
+    ['event-id'],
     (data) => {
         let eventId = data['event-id'];
         let article = $(`#event-${eventId}`);
@@ -39,7 +39,7 @@ setPostHandler(
     '#bookmark-button',
     'click',
     bookmark_url,
-    ['data-event-id'],
+    ['event-id'],
     (data) => {
         let eventId = data['event-id'];
         let article = $(`#event-${eventId}`);

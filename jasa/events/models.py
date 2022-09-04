@@ -49,6 +49,13 @@ class Event(models.Model):
         blank=True,
         verbose_name="bookmarks"
     )
+    tags = models.ManyToManyField(
+        'Tag',
+        related_name='tag_events',
+        default=None,
+        blank=True,
+        verbose_name="tags"
+    )
 
     pub_date = models.DateTimeField(
         'Event publish date',
@@ -126,3 +133,21 @@ class Bookmark(models.Model):
         on_delete=models.CASCADE,
     )
 
+
+class Tag(models.Model):
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+    )
+    events = models.ManyToManyField(
+        Event,
+        related_name='tag',
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'

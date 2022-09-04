@@ -19,6 +19,7 @@
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
 - [ ] Input fields are not same color when in dark mode
+- [x] Like and bookmark doesn't work properly
 - [x] Fix test errors
 
 # 🔗 Useful links
