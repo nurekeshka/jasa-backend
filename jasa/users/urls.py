@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import (
-    LoginView, LogoutView,
+    LogoutView,
     PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView
 )
@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     path(
         'login/',
-        LoginView.as_view(
+        views.UpdatedLoginView.as_view(
             template_name='users/login.html'
         ),
         name='login'

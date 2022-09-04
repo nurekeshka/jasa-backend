@@ -51,8 +51,8 @@ context = {
                     ),
                     Button(
                         button_type='web_app',
-                        text='📅 Календарь',
-                        extra=DOMAIN + '/calendar/'
+                        text='📅 Настройки',
+                        extra=DOMAIN + '/settings/'
                     )
                 ],
                 [

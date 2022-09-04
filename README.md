@@ -2,8 +2,6 @@
 - [ ] Profile page
 - [ ] Design Logout page with bootstrap
 - [ ] Figure out how to verify registration on event
-- [x] Implement 'Password Forget'
-- [ ] Implement 'Remember Password'
 # 👾 FIXME
 - Nothing
 # 🚀 Features
@@ -12,13 +10,15 @@
   - [ ] Image double press to like
   - [ ] Multiple images per event
 - **Auth**
-  - [ ] Remember password on login
+  - [x] Implement 'Password Forget'
+  - [x] Remember password on login
   - [ ] Link Telegram account to Jasa account
 - **General**
   - [ ] Multiple languages
   - [ ] Link google maps to location given in an event
 # 🐛 Bugs
 - [ ] Background issues with telegram old version
+- [ ] Input fields are not same color when in dark mode
 - [x] Fix test errors
 
 # 🔗 Useful links

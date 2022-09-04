@@ -6,16 +6,16 @@
 {% block content %}
 {% load user_filters %}
   <div class="row justify-content-center">
-    <div class="col-md-12">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card tg-bg-color border-0">
-        <div class="card-body p-0">    
+        <div class="card-body">    
           <img 
             class="mx-auto d-block my-3" 
             src="{% static 'img/jasa-logo-final.png' %}" alt="Jasa Logo" width="20%"
           />
           {% if form.errors %}
             {% for field in form %}
-              {% for error in field.errors %}            
+              {% for error in field.errors %}
                 <div class="alert alert-danger">
                   {{ error|escape }}
                 </div>
@@ -38,8 +38,15 @@
 
               {% for field in form %}
                 <div class="form-group mb-4">
-                  {{ field|placeholder:field.label|addclass:'form-control'}}
-    
+
+                  {{ field }}
+
+                  {% if field.label %}
+                    <label for="{{ field.id_for_label }}" class="form-label">
+                      {{ field.label }}
+                    </label>
+                  {% endif %}
+
                   {% if field.help_text %}
                     <small id="{{ field.id_for_label }}-help" class="form-text text-muted">
                       {{ field.help_text|safe }}
@@ -47,18 +54,6 @@
                   {% endif %}
                 </div>
               {% endfor %}
-              
-              <!-- Checkbox -->
-              <div class="form-check d-flex justify-content-start mb-4 align-items-center">
-                <input class="form-check-input" type="checkbox" value="" id="remember_password" />
-                <label class="form-check-label" for="remember_password">
-                  <small>Remember password</small>
-                </label>
-
-                <a href="{% url 'users:password_reset' %}" class="ml-auto">
-                  <small>Forgot password?</small>
-                </a>
-              </div>
 
               <button type="submit" class="btn outline-btn w-100">
                 Login
@@ -66,14 +61,12 @@
             </form>
           </div>
         </div>
+        <div class="text-center">
+          <a href="{% url 'users:password_reset' %}" class="ml-auto">
+            <small>Forgot password?</small>
+          </a>
+        </div>
       </div>
-    
-      <span class="text-muted">
-        <small>
-          Don't have an account? 
-          <a href="{% url 'users:signup' %}">Register</a>
-        </small>
-      </span>
     </div>
   </div>
 {% endblock %}
