@@ -9,6 +9,8 @@
   - [ ] Organizer profile image on event post
   - [ ] Image double press to like
   - [ ] Multiple images per event
+  - [ ] Search input
+  - [ ] Show events by tags
 - **Auth**
   - [x] Implement 'Password Forget'
   - [x] Remember password on login
